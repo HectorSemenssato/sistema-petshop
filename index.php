@@ -1,8 +1,8 @@
 <?php
 include "conexao.php";
 
-// $ag_andamento = mysqli_query($conn, "select count(id_agendamento) from agendamento where situacao_ag = 1");
-// $ag_encerrados = mysqli_query($conn, "select count(id_agendamento) from agendamento where situacao_ag = 0");
+$ag_andamento = mysqli_query($conn, "SELECT count(id_agendamento) from agendamento where status_agendamento = 1");
+$ag_encerrados = mysqli_query($conn, "SELECT count(id_agendamento) from agendamento where status_agendamento = 0");
 ?>
 
 <!doctype html>
@@ -34,12 +34,12 @@ include "conexao.php";
                 </div>
                 <hr class="my-4">
             </div>
-            <h3>Panorama geral do sistema</h3>
+            <h3>Panorama do sistema</h3>
             <div id="panor-tot-agend">
-                <h5>Agendamentos em andamento: <?php echo $ag_andamento?></h5>
+                <h5>Agendamentos em andamento: <?php echo mysqli_fetch_row($ag_andamento)[0]?></h5>
             </div>
             <div id="panor-cancel-agend">
-                <h5>Agendamentos cancelados: <?php echo $ag_encerrados?></h5>
+                <h5>Agendamentos cancelados: <?php echo mysqli_fetch_row($ag_encerrados)[0]?></h5>
             </div>
         </div>
     </div>
