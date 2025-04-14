@@ -1,0 +1,86 @@
+.container{
+    justify-content: center;
+    text-align: center;
+}
+
+#botao-cadastrar{
+    background-color: rgb(255, 0, 76);
+    width: 250px;
+    height: 100%;
+    margin-top: 2%;
+    border: 2px solid #000;
+    border-radius: 50px;
+    box-shadow: 0px 5px 0px 0px rgba(0,0,0,1);
+    font-weight: bold;
+    transition: all 0.2s ease
+}
+
+#botao-cadastrar:hover{
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,1);
+    transition: all 0.2s ease
+}
+
+#botao-consultar{
+    background-color: #00C3FF;
+    width: 280px;
+    height: 100%;
+    margin-top: 2%;
+    border: 2px solid #000;
+    border-radius: 50px;
+    box-shadow: 0px 5px 0px 0px rgba(0,0,0,1);
+    font-weight: bold;
+    transition: all 0.2s ease
+}
+
+#botao-consultar:hover{
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,1);
+    transition: all 0.2s ease
+}
+
+#panor-tot-agend{
+    
+    background: #FFEC00;
+    border: 3px solid #000;
+    border-radius: 20px;
+    box-shadow: 7px 7px rgb(170, 162, 57);
+    width: 400px;
+    height: 80px;
+    position: absolute; /* Deixa o div solto na página */
+    top: 350px;           /* Distância do topo */
+    left: 140px;
+    display: flex; /* Flexbox mágica */
+    justify-content: center; /* Centraliza na horizontal */
+    align-items: center;
+    transition: all 0.2s ease
+}
+
+#panor-tot-agend:hover{
+    box-shadow: 0px 0px rgb(170, 162, 57);
+    transition: all 0.2s ease
+}
+
+#panor-cancel-agend{
+    background-color: #FFEC00;
+    border: 3px solid #000;
+    border-radius: 20px;
+    width: 400px;
+    height: 80px;
+    box-shadow: 7px 5px #AAA239;
+    position: absolute; /* Deixa o div solto na página */
+    top: 450px;           /* Distância do topo */
+    left: 140px;
+    display: flex; /* Flexbox mágica */
+    justify-content: center; /* Centraliza na horizontal */
+    align-items: center; 
+    transition: all 0.2s ease;   
+}
+
+#panor-cancel-agend:hover{
+    box-shadow: 0px 0px 0px 0px #AAA239;
+    transition: all 0.2s ease;
+}
+
+#usuario{
+    background-color: #00C3FF;
+    text-align: center;
+}
