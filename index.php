@@ -28,18 +28,25 @@ $ag_encerrados = mysqli_query($conn, "SELECT count(id_agendamento) from agendame
                 <div class="jumbotron">
                     <h1 class="display-4">Pet Shop</h1>
                     <p class="lead">Seja bem-vindo ao sistema de agendamentos de banho e tosa</p>
-                    <hr class="my-1">
-                    <a class="btn" id="botao-cadastrar" href="cadastrar.php" role="button">fazer agendamentos</a>
+                    <hr class="my-3">
+                    <a class="btn" data-bs-toggle="dropdown">fazer cadastros</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="cadastrar.php">Agendamento</a></li>
+                        <li><a class="dropdown-item" href="cadastrar_animais.php">Animal</a></li>
+                        <li><a class="dropdown-item" href="#">Cliente</a></li>
+                    </ul>
                     <a class="btn" id="botao-consultar" href="consultar.php" role="button">visualizar agendamentos</a>
                 </div>
                 <hr class="my-4">
             </div>
             <h3>Panorama do sistema</h3>
-            <div id="agnd-total">
-                <h5>Agendamentos em andamento: <?php echo mysqli_fetch_row($ag_andamento)[0]?></h5>
-            </div>
-            <div id="agnd-cancelados">
-                <h5>Agendamentos cancelados: <?php echo mysqli_fetch_row($ag_encerrados)[0]?></h5>
+            <div class="painel-container">
+                <div id="agnd-andamento">
+                    <h5>Agendamentos em andamento: <?php echo mysqli_fetch_row($ag_andamento)[0] ?></h5>
+                </div>
+                <div id="agnd-cancelados">
+                    <h5>Agendamentos cancelados: <?php echo mysqli_fetch_row($ag_encerrados)[0] ?></h5>
+                </div>
             </div>
         </div>
     </div>
@@ -47,10 +54,10 @@ $ag_encerrados = mysqli_query($conn, "SELECT count(id_agendamento) from agendame
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-    </script>
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
-    </script>
+</script>
 </body>
 
 </html>

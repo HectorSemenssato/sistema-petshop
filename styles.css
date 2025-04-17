@@ -1,85 +1,114 @@
-.container{
-    justify-content: center;
+.container {
     text-align: center;
 }
 
-#botao-cadastrar{
+.btn{
     background-color: #8567e6;
-    width: 250px;
-    height: 100%;
-    margin-top: 2%;
     border: 2px solid #000;
     border-radius: 50px;
-    box-shadow: 0px 5px 0px 0px rgba(0,0,0,1);
+    padding: 10px;
+    width: 180px;
+    text-align: center;
+    justify-content: center;
+    box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 1);
     font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #8567e6;
+    border: 2px solid #000;
+    border-radius: 50px;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 1);
     transition: all 0.2s ease
 }
 
-#botao-cadastrar:hover{
-    box-shadow: 0px 0px 0px 0px rgba(0,0,0,1);
-    transition: all 0.2s ease
+.dropdown-menu {
+    background-color: #8567e6;
+    border-radius: 15px;
+    border: 1px solid #000;
+    padding: 6px;
 }
 
-#botao-consultar{
+
+.dropdown-item {
+    font-weight: bold;
+    text-align: center;
+}
+
+.dropdown-item:hover {
+    background-color: #71eb78;
+}
+
+#botao-consultar {
     background-color: #71eb78;
     width: 280px;
     height: 100%;
-    margin-top: 2%;
+
     border: 2px solid #000;
     border-radius: 50px;
-    box-shadow: 0px 5px 0px 0px rgba(0,0,0,1);
+    box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 1);
     font-weight: bold;
     transition: all 0.2s ease
 }
 
-#botao-consultar:hover{
+#botao-consultar:hover {
     box-shadow: 0px 0px 0px 0px #ebaa71;
     transition: all 0.2s ease
 }
 
-#panor-tot-agend{
+#agnd-andamento {
     background: #ebaa71;
     border: 3px solid #000;
     border-radius: 20px;
     box-shadow: 7px 7px #ebaa71e3;
     width: 400px;
     height: 80px;
-    position: absolute; /* Deixa o div solto na página */
-    top: 350px;           /* Distância do topo */
-    left: 140px;
-    display: flex; /* Flexbox mágica */
-    justify-content: center; /* Centraliza na horizontal */
+    display: flex;
+    justify-content: center;
     align-items: center;
     transition: all 0.2s ease
 }
 
-#panor-tot-agend:hover{
-    box-shadow: 0px 0px rgb(170, 162, 57);
-    transition: all 0.2s ease
-}
-
-#panor-cancel-agend{
-    background-color: #ebaa71;
-    border: 3px solid #000;
-    border-radius: 20px;
-    width: 400px;
-    height: 80px;
-    box-shadow: 7px 5px #ebaa71e3;
-    position: absolute; /* Deixa o div solto na página */
-    top: 450px;           /* Distância do topo */
-    left: 140px;
-    display: flex; /* Flexbox mágica */
-    justify-content: center; /* Centraliza na horizontal */
-    align-items: center; 
-    transition: all 0.2s ease;   
-}
-
-#panor-cancel-agend:hover{
+#agnd-andamento:hover {
     box-shadow: 0px 0px 0px 0px #ebaa71;
     transition: all 0.2s ease;
 }
 
-#usuario{
-    background-color: #00C3FF;
+#agnd-cancelados {
+    background-color: #ebaa71;
+    border: 3px solid #000;
+    border-radius: 20px;
+    box-shadow: 7px 5px #ebaa71e3;
+    width: 400px;
+    height: 80px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+#agnd-cancelados:hover {
+    box-shadow: 0px 0px 0px 0px #ebaa71;
+    transition: all 0.2s ease;
+}
+
+.painel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    gap: 100%;
+    margin-top: 30px;
+}
+
+#usuario {
+    background-color: #00c3ff91;
     text-align: center;
+    transition: all 0.7s ease;
+}
+
+#usuario:hover {
+    background-color: #ebaa71;
+    transition: all 0.7s ease;
 }
