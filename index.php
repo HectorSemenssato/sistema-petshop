@@ -35,10 +35,10 @@ $ag_encerrados = mysqli_query($conn, "SELECT count(id_agendamento) from agendame
                 <hr class="my-4">
             </div>
             <h3>Panorama do sistema</h3>
-            <div id="panor-tot-agend">
+            <div id="agnd-total">
                 <h5>Agendamentos em andamento: <?php echo mysqli_fetch_row($ag_andamento)[0]?></h5>
             </div>
-            <div id="panor-cancel-agend">
+            <div id="agnd-cancelados">
                 <h5>Agendamentos cancelados: <?php echo mysqli_fetch_row($ag_encerrados)[0]?></h5>
             </div>
         </div>

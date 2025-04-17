@@ -4,7 +4,7 @@
 }
 
 #botao-cadastrar{
-    background-color: rgb(255, 0, 76);
+    background-color: #8567e6;
     width: 250px;
     height: 100%;
     margin-top: 2%;
@@ -21,7 +21,7 @@
 }
 
 #botao-consultar{
-    background-color: #00C3FF;
+    background-color: #71eb78;
     width: 280px;
     height: 100%;
     margin-top: 2%;
@@ -33,16 +33,15 @@
 }
 
 #botao-consultar:hover{
-    box-shadow: 0px 0px 0px 0px rgba(0,0,0,1);
+    box-shadow: 0px 0px 0px 0px #ebaa71;
     transition: all 0.2s ease
 }
 
 #panor-tot-agend{
-    
-    background: #FFEC00;
+    background: #ebaa71;
     border: 3px solid #000;
     border-radius: 20px;
-    box-shadow: 7px 7px rgb(170, 162, 57);
+    box-shadow: 7px 7px #ebaa71e3;
     width: 400px;
     height: 80px;
     position: absolute; /* Deixa o div solto na página */
@@ -60,12 +59,12 @@
 }
 
 #panor-cancel-agend{
-    background-color: #FFEC00;
+    background-color: #ebaa71;
     border: 3px solid #000;
     border-radius: 20px;
     width: 400px;
     height: 80px;
-    box-shadow: 7px 5px #AAA239;
+    box-shadow: 7px 5px #ebaa71e3;
     position: absolute; /* Deixa o div solto na página */
     top: 450px;           /* Distância do topo */
     left: 140px;
@@ -76,7 +75,7 @@
 }
 
 #panor-cancel-agend:hover{
-    box-shadow: 0px 0px 0px 0px #AAA239;
+    box-shadow: 0px 0px 0px 0px #ebaa71;
     transition: all 0.2s ease;
 }
 
