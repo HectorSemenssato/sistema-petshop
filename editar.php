@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Edição de agendamentos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="style_edicao.css">
   </head>
   <body>
     <?php
@@ -20,9 +21,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <H1>
-                        <center>Edição de agendamentos</center>
-                    </H1>
+                    <h1>Edição de agendamentos</h1>
                     <form action="editar_toDB.php">
                         <div class="mb-3">
                             <label for="idfuncionario_agendamento" class="form-label">ID do funcionário:</label>
@@ -30,7 +29,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="tipoanimal_agendamento" class="form-label">Tipo de animal:</label>
-                            <input type="text" class="form-control" name="tipoanimal_agendamento" required value="<?php echo $linha['tipo_animal'] ?>">
+                            <input type="text" class="form-control" name="idanimal_agendamento" required value="<?php echo $linha['id_animal'] ?>">
                         </div>
                         <div class="mb-3">
                             <label for="nomecliente_agendamento" class="form-label">Nome do cliente:</label>

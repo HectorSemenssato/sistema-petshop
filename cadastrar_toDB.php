@@ -12,13 +12,14 @@
           <?php
             include "conexao.php";
             $idfuncionario = $_GET['funcionario_agendamento'];
-            $tipoanimal = $_GET['tipoanimal_agendamento'];
+            $idanimal = $_GET['idanimal_agendamento'];
             $nomecliente = $_GET['nomecliente_agendamento'];
             $data_agendamento = $_GET['data_agendamento'];
             $hora_agendamento = $_GET['hora_agendamento'];
 
-            $sql = "INSERT into `agendamento`(`id_funcionario`,`data_agendamento`, `hora_agendamento`,`tipo_animal`, `nome_cliente`) VALUES ($idfuncionario, '$data_agendamento', '$hora_agendamento','$tipoanimal', '$nomecliente')";
-           
+            $sql = "INSERT into `agendamento`(`id_funcionario`, `id_animal`, `data_agendamento`, `hora_agendamento`, `nome_cliente`) 
+                      VALUES ($idfuncionario, $idanimal, '$data_agendamento', '$hora_agendamento', '$nomecliente')";
+
             if(mysqli_query($conn, $sql)){
                 mensagem("Agendamento cadastrado com sucesso :D", 'success');
             }else{

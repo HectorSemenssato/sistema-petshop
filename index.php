@@ -2,7 +2,9 @@
 include "conexao.php";
 
 $ag_andamento = mysqli_query($conn, "SELECT count(id_agendamento) from agendamento where status_agendamento = 1");
-$ag_encerrados = mysqli_query($conn, "SELECT count(id_agendamento) from agendamento where status_agendamento = 0");
+$ag_finalizados = mysqli_query($conn, "SELECT count(id_agendamento) from agendamento where status_agendamento = 2");
+$ag_cancelados = mysqli_query($conn, "SELECT count(id_agendamento) from agendamento where status_agendamento = 3");
+$ag_total = mysqli_query($conn, "SELECT count(id_agendamento) from agendamento");
 ?>
 
 <!doctype html>
@@ -20,20 +22,20 @@ $ag_encerrados = mysqli_query($conn, "SELECT count(id_agendamento) from agendame
     <div id="usuario">
         <h5>Olá, %user%!</h5>
     </div>
+    <a href="login.php" class="btn">Login (provisório)</a>
 </div>
 <div>
     <div class="container">
         <div class="row">
             <div class="col">
                 <div class="jumbotron">
-                    <h1 class="display-4">Pet Shop</h1>
-                    <p class="lead">Seja bem-vindo ao sistema de agendamentos de banho e tosa</p>
+                    <p class="lead">Dashboard do sistema</p>
                     <hr class="my-3">
-                    <a class="btn" data-bs-toggle="dropdown">fazer cadastros</a>
+                    <a class="btn btn_cadastro" data-bs-toggle="dropdown">fazer cadastros</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="cadastrar.php">Agendamento</a></li>
-                        <li><a class="dropdown-item" href="cadastrar_animais.php">Animal</a></li>
-                        <li><a class="dropdown-item" href="#">Cliente</a></li>
+                        <li><a class="dropdown-item" href="cadastrar_agendamento.php">Agendamento</a></li>
+                        <li><a class="dropdown-item" href="cadastrar_animal.php">Animal</a></li>
+                        <li><a class="dropdown-item" href="cadastrar_cliente.php">Cliente</a></li>
                     </ul>
                     <a class="btn" id="botao-consultar" href="consultar.php" role="button">visualizar agendamentos</a>
                 </div>
@@ -45,8 +47,13 @@ $ag_encerrados = mysqli_query($conn, "SELECT count(id_agendamento) from agendame
                     <h5>Agendamentos em andamento: <?php echo mysqli_fetch_row($ag_andamento)[0] ?></h5>
                 </div>
                 <div id="agnd-cancelados">
-                    <h5>Agendamentos cancelados: <?php echo mysqli_fetch_row($ag_encerrados)[0] ?></h5>
+                    <h5>Agendamentos cancelados: <?php echo mysqli_fetch_row($ag_cancelados)[0] ?></h5>
                 </div>
+                <div id="agnd-finalizados">
+                    <h5>Agendamentos finalizados: <?php echo mysqli_fetch_row($ag_finalizados)[0] ?></h5>
+                </div>
+                <div id="agnd-totais">
+                    <h5>Total de agendamentos realizados: <?php echo mysqli_fetch_row($ag_total)[0] ?></h5>
             </div>
         </div>
     </div>

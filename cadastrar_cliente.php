@@ -11,37 +11,37 @@
 
 <body>
     <div id="title">
-        <h4>Cadastro de animal</h4>
+        <h4>Cadastro de cliente</h4>
     </div>
     <div class="container">
         <div class="row">
             <div class="col">
                 <form action="cadastrar_toDB.php">
                     <div class="input__container input_nomeanimal" data-label="nome do animal">
-                        <div class="input_sombra"></div>
-                        <button class="icone_nomeanimal">
+                        <div class="shadow__input"></div>
+                        <button class="input__button__shadow">
                             <p>🐾</p>
                         </button>
-                        <input type="text" name="nomeanimal" class="input__search search_nomeanimal" placeholder="Digite o nome do bichinho" />
+                        <input type="text" name="nomeanimal" class="input__search search_cliente" placeholder="Digite o nome do bichinho" />
                     </div>
                     <div class="input__container input_idade" data-label="idade">
-                        <div class="input_sombra"></div>
+                        <div class="shadow__input"></div>
                         <input type="text" name="idadeanimal" class="input__search search_idade" placeholder="Digite a idade do bichinho" />
                     </div>
                     <div class="input__container input_raca" data-label="raça">
-                        <div class="input_sombra"></div>
+                        <div class="shadow__input"></div>
                         <input type="text" name="racaanimal" class="input__search search_raca" placeholder="Digite a raça do bichinho" />
                     </div>
                     <div class="input__container input_porte" data-label="porte">
-                        <div class="input_sombra"></div>
+                        <div class="shadow__input"></div>
                         <input type="text" name="porteanimal" class="input__search search_porte" placeholder="Digite o porte do bichinho" />
                     </div>
                     <div class="input__container input_tutor" data-label="tutor">
-                        <div class="input_sombra"></div>
+                        <div class="shadow__input"></div>
                         <input type="text" name="idadeanimal" class="input__search search_tutor" placeholder="Digite o nome do tutor" />
                     </div>
-                    <button type="submit" class="btn btn_cadastraanimal">Cadastrar animal</button>
-                    <a href="index.php" class="btn btn_inicio">Voltar para o início</a>
+                    <button type="submit" class="btn btn-success">Cadastrar animal</button>
+                    <a href="index.php" class="btn btn-info">Voltar para o início</a>
                 </form>
             </div>
         </div>

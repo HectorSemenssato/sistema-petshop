@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Consulta de agendamentos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <?php
@@ -14,8 +15,8 @@
 
         $sql = "SELECT * from agendamento WHERE id_agendamento like '%$pesquisa%'
                                           OR id_funcionario like '%$pesquisa%'
+                                          OR id_animal LIKE '%$pesquisa%'
                                           OR nome_cliente LIKE '%$pesquisa%'
-                                          OR tipo_animal LIKE '%$pesquisa%' 
                                           OR data_agendamento LIKE '%$pesquisa%' 
                                           OR hora_agendamento LIKE '%$pesquisa%'";
         $dados = mysqli_query($conn, $sql);
@@ -24,15 +25,13 @@
     <div class="container">
         <div class="row">
             <div class="col">
-            <h1>
-                <center>Registro de agendamentos</center>
-            </h1>
+            <h1>Registro de agendamentos</h1>
             <nav class="navbar bg-body-tertiary">
                 <div class="container-fluid">
                     <form class="d-flex" action="consultar.php" method="POST">
                     <input class="form-control me-2" type="search" placeholder="Digite aqui o que deseja encontrar" aria-label="Search" name="busca" autofocus>
-                    <button class="btn btn-outline-success me-2" type="submit">Buscar</button>
-                    <a href="index.php" class="btn btn-outline-info me-2">Início</a>
+                    <button class="btn btn-busca" type="submit">Buscar</button>
+                    <a href="index.php" class="btn btn_inicio">Início</a>
                     </form>
                 </div>
             </nav>
@@ -42,7 +41,7 @@
                <tr>
                     <th scope="col">ID do agendamento</th>
                     <th scope="col">ID do funcionário</th>
-                    <th scope="col">Tipo de animal</th>
+                    <th scope="col">ID do animal</th>
                     <th scope="col">Nome do cliente</th>
                     <th scope="col">Data do agendamento</th>
                     <th scope="col">Hora do agendamento</th>
@@ -54,22 +53,23 @@
                     while($linha = mysqli_fetch_assoc($dados)){
                         $idagendamento = $linha['id_agendamento'];
                         $idfuncionario = $linha['id_funcionario']; 
-                        $tipoanimal = $linha['tipo_animal'];
+                        $idanimal = $linha['id_animal'];
                         $nomecliente = $linha['nome_cliente'];
                         $dataagendamento = $linha['data_agendamento'];
-                        $dataagendamento = dataPadraoBR($dataagendamento);
+                        $dataagendamento = dataPadraoBR($dataagendamento);  
                         $horaagendamento = $linha['hora_agendamento'];
 
                         echo "<tr>
                                 <th scope='row'>$idagendamento</th>
                                 <td>$idfuncionario</td>
-                                <td>$tipoanimal</td>
+                                <td>$idanimal</td>
                                 <td>$nomecliente</td>
                                 <td>$dataagendamento</td>
                                 <td>$horaagendamento</td>
-                                <td width=150px><a href='editar.php?id_agendamento=$idagendamento' class='btn btn-success btn-sm'>Editar</a>
-                                    <a href='#' class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#modalconfirmacao'
+                                <td width=100px><a href='editar.php?id_agendamento=$idagendamento' class='btn btn-editar'>Editar</a>
+                                    <a href='#' class='btn btn-exclusao' data-bs-toggle='modal' data-bs-target='#modalconfirmacao'
                                     onclick=" .'"' ."pegar_dados($idagendamento)" .'"' .">Excluir</a>
+                                     <button type='button' class='btn btn-outline-danger' data-bs-dismiss='modal'>Finalizar agendamento </button>
                                 </td>
                              <tr>";
                     }

@@ -1,9 +1,17 @@
 .container {
+    justify-content: center;
     text-align: center;
 }
 
-.btn{
-    background-color: #8567e6;
+.painel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    gap: 100%;
+    margin-top: 30px;
+}
+
+.btn {
     border: 2px solid #000;
     border-radius: 50px;
     padding: 10px;
@@ -15,12 +23,38 @@
     transition: all 0.2s ease;
 }
 
-.btn:hover {
-    background-color: #8567e6;
+.btn:hover,
+.btn-exclusao:hover,
+.btn-editar:hover {
     border: 2px solid #000;
     border-radius: 50px;
     box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 1);
     transition: all 0.2s ease
+}
+
+.btn_inicio,
+.btn_inicio:hover,
+.btn_cadastro,
+.btn_cadastro:hover {
+    background: #8567e6 !important;
+}
+
+.btn-busca,
+.btn-busca:hover {
+    background: #71eb78 !important;
+}
+
+.btn-exclusao,
+.btn-exclusao:hover {
+    color: white;
+    background: #384042 !important;
+    width: 100px;
+}
+
+.btn-editar,
+.btn-editar:hover {
+    background: #54bf9e !important;
+    width: 100px;
 }
 
 .dropdown-menu {
@@ -44,7 +78,6 @@
     background-color: #71eb78;
     width: 280px;
     height: 100%;
-
     border: 2px solid #000;
     border-radius: 50px;
     box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 1);
@@ -53,53 +86,70 @@
 }
 
 #botao-consultar:hover {
-    box-shadow: 0px 0px 0px 0px #ebaa71;
+    box-shadow: 0px 0px 0px 0px #000;
     transition: all 0.2s ease
 }
 
-#agnd-andamento {
-    background: #ebaa71;
+#agnd-andamento,
+#agnd-cancelados,
+#agnd-finalizados {
     border: 3px solid #000;
     border-radius: 20px;
-    box-shadow: 7px 7px #ebaa71e3;
     width: 400px;
     height: 80px;
+    margin-left: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: all 0.2s ease
 }
 
-#agnd-andamento:hover {
-    box-shadow: 0px 0px 0px 0px #ebaa71;
-    transition: all 0.2s ease;
-}
-
+#agnd-andamento,
 #agnd-cancelados {
-    background-color: #ebaa71;
-    border: 3px solid #000;
-    border-radius: 20px;
-    box-shadow: 7px 5px #ebaa71e3;
-    width: 400px;
-    height: 80px;
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.2s ease;
+    background: #ad7e51;
+    box-shadow: 7px 7px #ad7e51;
 }
 
+#agnd-finalizados {
+    background: #54bf9e;
+    box-shadow: 7px 7px #54bf9e;
+}
+
+#agnd-cancelados,
+#agnd-finalizados {
+    margin-top: 15px;
+
+}
+
+#agnd-andamento:hover,
 #agnd-cancelados:hover {
     box-shadow: 0px 0px 0px 0px #ebaa71;
     transition: all 0.2s ease;
 }
 
-.painel-container {
+#agnd-finalizados:hover {
+    box-shadow: 0px 0px #54bf9e;
+    transition: all 0.2s ease;
+}
+
+#agnd-totais {
+    background-color: #71eb78;
+    border: 3px solid #000;
+    border-radius: 20px;
+    box-shadow: 7px 7px #000;
+    width: 400px;
+    height: 80px;
+    margin-top: -175px;
+    margin-left: 550px;
     display: flex;
-    flex-direction: column;
-    align-items: left;
-    gap: 100%;
-    margin-top: 30px;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease
+}
+
+#agnd-totais:hover {
+    box-shadow: 0px 0px 0px 0px #000;
+    transition: all 0.2s ease;
 }
 
 #usuario {

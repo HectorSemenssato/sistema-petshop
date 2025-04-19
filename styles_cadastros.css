@@ -1,4 +1,15 @@
-.input__container {
+#title{
+  background-color: #00c3ff91;
+  text-align: center;
+  transition: all 0.7s ease;
+}
+
+#title:hover {
+  background-color: #ebaa71;
+  transition: all 0.7s ease;
+}
+
+.input__container{
   position: relative;
   background: #fff;
   padding: 15px;
@@ -20,7 +31,7 @@
   box-shadow: 10px 15px 0 -5px #8567e6, 10px 15px 0 0 #000;
 }
 
-.input__container::before {
+.input__container::before, .input_login::before, .input_pass::before {
   content: attr(data-label);
   position: absolute;
   top: -18px;
@@ -36,32 +47,32 @@
   border-radius: 8px;
 }
 
-.input_nomeanimal {
+.input_nomeanimal, .input_ag_idfuncionario {
   top: 30px;
   width: 500px;
 }
 
-.input_idade {
+.input_idade, .input_ag_idanimal {
   top: 70px;
   width: 500px;
 }
 
-.input_raca {
+.input_raca, .input_ag_nomecliente {
   top: 110px;
   width: 500px;
 }
 
-.input_porte {
+.input_porte, .input_ag_dataagenda {
   top: 150px;
   width: 500px;
 }
 
-.input_tutor {
+.input_tutor, .input_ag_horaagenda {
   top: 190px;
   width: 500px;
 }
 
-.input__button__shadow {
+.icone_nomeanimal {
   cursor: pointer;
   border: 3px solid #000;
   border-radius: 10px;
@@ -79,14 +90,12 @@
   
 }
 
-.input__button__shadow:hover {
+.icone_nomeanimal:hover {
   background: #71eb78;
   transform: translateZ(10px) translateX(-5px) translateY(-5px);
   box-shadow: 5px 5px 0 0 #000;
 }
 
-
-/* input type enter username */
 .input__search {
   width: 100%;
   outline: none;
@@ -118,28 +127,15 @@
   width: 383px;
 }
 
-.search_idade {
+.search_idade, .search_raca, .search_porte, .search_tutor {
   width: 440px;
 }
 
-.search_raca {
-  width: 440px;
-}
-
-.search_porte {
-  width: 440px;
-}
-
-.search_tutor {
-  width: 440px;
-}
-
-.btn-success {
+.btn{
   position: relative;
   width: 200px;
   top: 110px;
   left: 55%;
-  background-color: #8567e6;
   width: 280px;
   height: 40px;
   margin-top: 2%;
@@ -150,23 +146,75 @@
   transition: all 0.2s ease
 }
 
-.btn-info {
-  position: relative;
-  width: 200px;
-  top: 110px;
-  left: 55%;
-  background-color: #71eb78;
-  width: 280px;
-  height: 40px;
-  margin-top: 2%;
-  border: 2px solid #000;
-  border-radius: 50px;
-  box-shadow: 0px 5px 0px 0px rgba(0,0,0,1);
-  font-weight: bold;
-  transition: all 0.2s ease;
+.btn_agendar, .btn_cadastraanimal, .btn_login{
+  background-color: #8567e6 !important;
 }
 
-.btn:hover{
+.btn_inicio, .btn_inicio:hover{
+  background: #71eb78 !important
+}
+
+.btn:hover, .btn:active{
+  border: 2px solid #000;
   box-shadow: 0px 0px #000000;
   transition: all 0.2s ease
+}
+
+.btn_login{
+  top: -50px;
+  left: 530px;
+}
+
+/* Login */
+.container__login{
+  margin-top: 150px;
+  margin-left: 365px;
+  height: 300px;
+  width: 600px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  display: block;
+  border: 2px solid #000;
+  border-radius: 20px;
+}
+
+.user{
+  margin-top: 85px;
+  margin-left: 70px;
+  height: 45px;
+  width: 450px;
+  justify-content: center;
+}
+
+.pass{
+  margin-top: 50px;
+  margin-left: 70px;;
+  height: 45px;
+  width: 450px;
+  justify-content: center;
+} 
+
+.input_login::before{
+  margin-top: 260px;
+  margin-left: 410px;
+}
+
+.input_pass::before{
+  margin-top: 355px;
+  margin-left: 410px;
+}
+
+#saudacao{
+  position: relative;
+  top: 130px;
+  text-align: center;
+}
+
+#chkbox_banhoetosa{
+  position: absolute;
+  margin-top: -300px;
+  background-color: blue;
+  box-shadow: 5px static #000 ;
+
 }
