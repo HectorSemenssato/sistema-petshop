@@ -1,0 +1,427 @@
+#title {
+    background-color: #92dcf0;
+    color: #344e41;
+    text-align: center;
+    transition: all 0.7s ease;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+#title:hover {
+    background-color: #a7e4f8;
+}
+
+
+.btn_cadastro,
+.btn_cadastro:hover {
+    background: #8567e6 !important;
+}
+
+.dashboard-actions .btn_cadastro {
+    width: 200px;
+    padding: 8px 12px;
+    border-radius: 16px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 0.75);
+    border: none;
+    color: white;
+    display: inline-block;
+    text-decoration: none;
+    line-height: 1.5;
+}
+
+.btn_cadastro:hover {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.75);
+    transition: all 0.3s ease;
+    transform: translateY(-2px);
+}
+
+#botao-consultar {
+    background-color: #3ab140;
+    width: 280px;
+    padding: 8px 12px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 0.75);
+    border: none;
+    border-radius: 16px;
+    color: white;
+    display: inline-block;
+    text-decoration: none;
+    line-height: 1.5;
+}
+
+#botao-consultar:hover {
+    color: black;
+    box-shadow: 0px 0px 0px 0px #000;
+    transition: all 0.2s ease;
+    transform: translateY(-2px);
+
+
+}
+
+
+.btn-editar,
+.btn-exclusao,
+.btn-finalizaagendamento,
+.btn-cadagendamento {
+    width: 100px;
+    /* Largura padrão para todos os botões de ação */
+    padding: 8px 12px;
+    /* Aumenta um pouco o padding para botões mais "cheios" */
+    border-radius: 8px;
+    /* Bordas mais suaves */
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    /* Indica que é clicável */
+    transition: all 0.3s ease;
+    /* Transição suave para hover e click */
+    box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 0.75);
+    border: none;
+    /* Remove bordas padrão se existirem */
+    display: inline-block;
+    /* Garante que as propriedades de largura funcionem bem */
+    text-decoration: none;
+    /* Remove sublinhado de links que atuam como botões */
+    line-height: 1.5;
+    /* Ajusta a altura da linha do texto */
+}
+
+/* Estilo específico para o botão de Edição */
+.btn-editar {
+    background-color: #5cb85c;
+    color: white;
+    box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 0.75);
+}
+
+.btn-cadagendamento:hover {
+    background-color: #8567e6;
+    color: black;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.75);
+}
+
+.btn-editar:hover {
+    background-color: #4cae4c;
+    /* Verde um pouco mais escuro no hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    /* Sombra mais pronunciada no hover */
+    transform: translateY(-2px);
+    /* Efeito de "levantar" */
+    color: black;
+}
+
+/* Estilo específico para o botão de Exclusão */
+.btn-exclusao {
+    background-color: #d9534f;
+    color: white;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 0.75);
+}
+
+.btn-exclusao:hover {
+    background-color: #c9302c;
+
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Estilo para o novo botão de Finalizar Agendamento */
+.btn-finalizaagendamento {
+    background-color: #6c757d;
+    color: white;
+    box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 0.75);
+}
+
+/* Ajustando o hover para o botão de Finalizar Agendamento */
+.btn-finalizaagendamento:hover {
+    background-color: #5a6268;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.btn-cadagendamento {
+    background: #8567e6;
+    border-radius: 16px;
+    color: white;
+    box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 0.75);
+    width: 300px;
+}
+
+.btn-cadagendamento:hover {
+    background-color: #8567e6;
+    color: black;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.75);
+}
+
+.btn-busca {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 0.65);
+}
+
+.btn-busca:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+.btn-inicio {
+    /* Você usou btn_inicio, mantendo o nome */
+    background-color: #8567e6;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+
+    box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 0.75);
+    line-height: 2;
+}
+
+.btn-inicio:hover {
+    background-color: #8567e6;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+.navbar-petshop {
+    background-color: #92dcf0;
+    /* O mesmo azul celeste do seu #title */
+    border-bottom: 3px solid #000;
+    /* A mesma borda preta dos seus painéis */
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+/* Cor do texto do título "Petshop System" */
+.navbar-petshop .navbar-brand {
+    color: #344e41;
+    /* O mesmo verde escuro do seu #title */
+    font-weight: bold;
+}
+
+/* Estilo do link do usuário (antes do dropdown) */
+.navbar-petshop .nav-link {
+    color: #344e41;
+    font-weight: bold;
+}
+
+/* O menu dropdown que abre */
+.navbar-petshop .dropdown-menu {
+    background-color: #a7e4f8;
+    /* O mesmo azul do hover do #title */
+    border: 3px solid #000;
+    border-radius: 16px;
+    /* Mesma borda dos seus botões */
+    margin-top: 10px !important;
+    /* Um pequeno espaço abaixo da navbar */
+    box-shadow: 7px 7px #000;
+    /* O mesmo efeito de sombra dos painéis! */
+    padding: 0.5rem 0;
+}
+
+/* Os itens dentro do dropdown */
+.navbar-petshop .dropdown-item {
+    color: #344e41;
+    font-weight: bold;
+    padding: 0.5rem 1.5rem;
+    transition: all 0.2s ease;
+}
+
+/* Efeito hover nos itens do dropdown */
+.navbar-petshop .dropdown-item:hover {
+    background-color: #8567e6;
+    /* O seu roxo característico! */
+    color: white;
+}
+
+.navbar-petshop .dropdown-item::after {
+    display: none !important;
+}
+
+/* A linha divisória dentro do menu */
+.navbar-petshop .dropdown-divider {
+    border-top: 2px solid #344e41;
+    /* Linha mais grossa e escura */
+}
+
+/* Garante que o ícone do SVG pegue a cor correta */
+.navbar-petshop .nav-link svg {
+    fill: #344e41;
+}
+
+
+.painel-dashboard {
+    border: 3px solid #000;
+    border-radius: 20px;
+    width: 100%;
+    min-height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    transition: all 0.2s ease;
+}
+
+
+#agnd-andamento,
+#agnd-cancelados {
+    background: #ad7e51;
+    box-shadow: 7px 7px #ad7e51;
+}
+
+#agnd-finalizados {
+    background: #ad7e51;
+    box-shadow: 7px 7px #ad7e51;
+}
+
+#agnd-totais {
+    background-color: #71eb78;
+    box-shadow: 7px 7px #71eb78;
+}
+
+#agnd-andamento:hover,
+#agnd-cancelados:hover {
+    box-shadow: 0px 0px 0px 0px #ebaa71;
+    transition: all 0.2s ease;
+    transform: translateY(-2px);
+}
+
+#agnd-finalizados:hover {
+    box-shadow: 0px 0px #54bf9e;
+    transition: all 0.2s ease;
+    transform: translateY(-2px);
+}
+
+#agnd-totais:hover {
+    box-shadow: 0px 0px 0px 0px #71eb78;
+    transition: all 0.2s ease;
+    transform: translateY(-2px);
+}
+
+
+
+
+
+/* --- REGRA CHAVE: Reverter para border-collapse padrão e aplicar arredondamento --- */
+.table {
+    /* Manter bordas de linhas do Bootstrap */
+    border-collapse: collapse;
+    /* Importante para manter as linhas separadas */
+    border-radius: 15px;
+    /* Arredondamento das quinas externas da tabela */
+    overflow: hidden;
+    /* Corta qualquer conteúdo que excede as bordas arredondadas (essencial) */
+    /* Opcional: Adicione uma borda externa sutil para a tabela, se desejar */
+    /* border: 1px solid #dee2e6; */
+}
+
+/* --- ESTILO DO CABEÇALHO (Títulos) --- */
+.table thead {
+    background-color: #92dcf0;
+    /* Azul celeste vibrante (paleta petshop) */
+    color: #344e41;
+    /* Verde escuro para o texto, bom contraste */
+    font-weight: bold;
+}
+
+/* Borda inferior para os títulos para separação visual */
+/* Este estilo é crucial para a linha horizontal abaixo do cabeçalho */
+.table thead th {
+    border-bottom: 2px solid #5fa8d3;
+    /* Um azul um pouco mais escuro para a linha */
+}
+
+
+/* --- ARREDONDAMENTO DAS QUINAS DO CABEÇALHO E DA TABELA --- */
+/* Arredonda as quinas superiores do thead para combinar com o border-radius da tabela */
+.table thead tr:first-child th:first-child {
+    border-top-left-radius: 15px;
+}
+
+.table thead tr:first-child th:last-child {
+    border-top-right-radius: 15px;
+}
+
+/* Para garantir que a borda da última célula da tabela também seja arredondada corretamente */
+/* Isto é importante para a linha inferior da tabela */
+.table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 15px;
+}
+
+.table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 15px;
+}
+
+/* --- GARANTIR BORDAS ENTRE AS LINHAS --- */
+/* Se você removeu .table-borderless do seu HTML, o Bootstrap já deve adicionar bordas horizontais.
+   Caso não apareçam, adicione estas regras: */
+.table tbody tr td {
+    border-bottom: 1px solid #dee2e6;
+    /* Borda inferior para cada célula do corpo da tabela */
+    /* Opcional: Para ter as verticais também */
+    /* border-right: 1px solid #dee2e6; */
+}
+
+/* Para remover a borda inferior da última linha do corpo da tabela */
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Os estilos dos botões e outros elementos que já estavam funcionando podem ser mantidos. */
+/* Apenas certifique-se de que as classes dos botões estão aplicadas corretamente no HTML. */
+
+
+/* Estilo para a barra de busca (input type="search") */
+.form-control {
+    border: 2px solid #5fa8d3;
+    /* Borda com o azul um pouco mais escuro da paleta */
+    border-radius: 20px;
+    /* Bordas arredondadas, similar aos botões */
+    padding: 10px 15px;
+    /* Aumentar o padding para um campo mais "cheio" */
+    font-size: 1rem;
+    /* Tamanho da fonte padrão */
+    color: #344e41;
+    /* Cor do texto digitado, combinando com o texto do cabeçalho da tabela */
+    background-color: #f8f9fa;
+    /* Fundo cinza bem claro para o campo */
+    transition: all 0.3s ease;
+    /* Transição suave para efeitos de foco */
+    width: 350px;
+}
+
+/* Estilo para a barra de busca quando está em foco (clicada) */
+.form-control:focus {
+    border-color: #92dcf0;
+    /* Borda mais clara e vibrante no foco */
+    box-shadow: 0 0 0 0.25rem rgba(146, 220, 240, 0.5);
+    /* Sombra suave com a cor da paleta */
+    outline: 0;
+    /* Remove o outline padrão do navegador */
+    background-color: white;
+    /* Fundo branco no foco, para maior clareza */
+}
+
+/* Opcional: Estilo para o placeholder (texto "Digite aqui o que deseja encontrar") */
+.form-control::placeholder {
+    color: #8c9b9c;
+    /* Uma cor de cinza que combine */
+    opacity: 1;
+    /* Para garantir que a cor seja aplicada corretamente em todos os navegadores */
+}

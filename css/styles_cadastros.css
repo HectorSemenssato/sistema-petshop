@@ -1,0 +1,190 @@
+/* ------- Título ------ */
+#title {
+  background-color: #92dcf0;
+  color: #344e41;
+  text-align: center;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  transition: all 0.7s ease;
+}
+
+#title:hover {
+  background-color: #a7e4f8;
+}
+
+.input__container {
+  position: relative;
+  background: #fff;
+  padding: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  border: 2px solid #5fa8d3;
+  border-radius: 20px;
+  transition: all 400ms cubic-bezier(0.23, 1, 0.32, 1);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  box-shadow: 2px 2px #344e41;
+  margin-bottom: 15px;
+  width: 70%;
+}
+
+.input__container:hover {
+  transform: rotateX(5deg) rotateY(1 deg) scale(1.05);
+  box-shadow: 10px 15px 0 -5px #8567e6, 10px 15px 0 0 #344e41;
+}
+
+/* --- Indicadores acima dos inputs ---- */
+.input__container::before,
+.input_login::before,
+.input_pass::before {
+  content: attr(data-label);
+  position: absolute;
+  top: -18px;
+  left: 20px;
+  background: #71eb78;
+  color: #344e41;
+  font-weight: bold;
+  padding: 3px 8px;
+  font-size: 14px;
+  transform: translateZ(50px);
+  z-index: 4;
+  border: 2px solid #344e41;
+  border-radius: 8px;
+}
+
+.input__search {
+  width: 100%;
+  outline: none;
+  border: 3px solid #344e41;
+  border-radius: 20px;
+  padding: 5px;
+  font-size: 1rem;
+  background: #fff;
+  color: #344e41;
+  transition: all 400ms cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  font-family: "Roboto", Arial, sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.input__search::placeholder {
+  color: #8c9b9c;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.input__search:hover,
+.input__search:focus {
+  background: #f0f0f0;
+  box-shadow: 5px 5px 0 0 #344e41;
+  border-color: #5fa8d3;
+}
+
+
+
+.icone_nomeanimal {
+  cursor: pointer;
+  border: 3px solid #000;
+  border-radius: 10px;
+  background: #71eb78;
+  transition: all 0.5s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+  width: 45px;
+  font-size: 25px;
+  position: relative;
+  font-weight: bold;
+  text-transform: uppercase;
+
+}
+
+.icone_nomeanimal:hover {
+  background: #71eb78;
+  transform: translateZ(10px) translateX(-5px) translateY(-5px);
+  box-shadow: 5px 5px 0 0 #000;
+}
+
+/* ---- botões de ação ----- */
+.btn {
+  width: 170px;
+  height: 45px;
+  border: 2px solid #344e41;
+  border-radius: 50px;
+  box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 1);
+  font-weight: bold;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.btn_agendar,
+.btn_cadastraanimal,
+.btn_login {
+  background-color: #8567e6 !important;
+}
+
+.btn_inicio,
+.btn_inicio:hover {
+  background: #71eb78 !important;
+  color: #344e41 !important;
+}
+
+.btn:hover,
+.btn:active {
+  border: 2px solid #344e41;
+  box-shadow: 0px 0px #000;
+  transition: all 0.2s ease;
+  transform: translateY(5px);
+}
+
+.btn_login {
+  top: -50px;
+  left: 530px;
+}
+
+/* Login */
+.container__login {
+  margin-top: 150px;
+  margin-left: 365px;
+  height: 300px;
+  width: 600px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  display: block;
+  border: 2px solid #5fa8d3;
+  border-radius: 20px;
+  box-shadow: 5px 5px 0 0 #344e41;
+}
+
+.user, 
+.pass {
+  margin-top: 50px;
+  margin-left: 70px;
+  height: 45px;
+  width: 450px;
+  justify-content: center;
+}
+
+.input_login::before,
+.input_pass::before {
+  margin-top: 260px;
+  margin-left: 410px;
+}
+
+#saudacao {
+  position: relative;
+  top: 130px;
+  text-align: center;
+}
