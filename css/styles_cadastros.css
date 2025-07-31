@@ -9,10 +9,6 @@
   transition: all 0.7s ease;
 }
 
-#title:hover {
-  background-color: #a7e4f8;
-}
-
 .input__container {
   position: relative;
   background: #fff;
@@ -36,7 +32,6 @@
   box-shadow: 10px 15px 0 -5px #8567e6, 10px 15px 0 0 #344e41;
 }
 
-/* --- Indicadores acima dos inputs ---- */
 .input__container::before,
 .input_login::before,
 .input_pass::before {
@@ -83,8 +78,6 @@
   border-color: #5fa8d3;
 }
 
-
-
 .icone_nomeanimal {
   cursor: pointer;
   border: 3px solid #000;
@@ -111,21 +104,22 @@
 
 /* ---- botões de ação ----- */
 .btn {
-  width: 170px;
-  height: 45px;
-  border: 2px solid #344e41;
-  border-radius: 50px;
-  box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 1);
+  width: 200x;
+  padding: 8px 12px;
+  border-radius: 16px;
+  box-shadow: 0px 5px 0px 0px rgba(0, 0, 0, 0.75);
   font-weight: bold;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
   display: inline-flex;
-  justify-content: center;
-  align-items: center;
   color: white;
   font-size: 0.9rem;
+  text-align: center;
+  display: inline-block;
+  border: none;
+  line-height: 1.5;
 }
 
 .btn_agendar,
@@ -134,57 +128,18 @@
   background-color: #8567e6 !important;
 }
 
-.btn_inicio,
+.btn_inicio{
+  background: #3ab140!important;
+  color: white !important;
+}
+
 .btn_inicio:hover {
-  background: #71eb78 !important;
-  color: #344e41 !important;
+  color: black !important;
 }
 
 .btn:hover,
 .btn:active {
-  border: 2px solid #344e41;
-  box-shadow: 0px 0px #000;
-  transition: all 0.2s ease;
-  transform: translateY(5px);
-}
-
-.btn_login {
-  top: -50px;
-  left: 530px;
-}
-
-/* Login */
-.container__login {
-  margin-top: 150px;
-  margin-left: 365px;
-  height: 300px;
-  width: 600px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  display: block;
-  border: 2px solid #5fa8d3;
-  border-radius: 20px;
-  box-shadow: 5px 5px 0 0 #344e41;
-}
-
-.user, 
-.pass {
-  margin-top: 50px;
-  margin-left: 70px;
-  height: 45px;
-  width: 450px;
-  justify-content: center;
-}
-
-.input_login::before,
-.input_pass::before {
-  margin-top: 260px;
-  margin-left: 410px;
-}
-
-#saudacao {
-  position: relative;
-  top: 130px;
-  text-align: center;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.75);
+  transition: all 0.3s ease;
+  transform: translateY(-2px);
 }
