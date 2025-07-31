@@ -1,6 +1,6 @@
 <?php
 include "conexao.php";
-include 'protege_pagina.php'; // Nosso guardião!
+include 'protege_pagina.php'; 
 
 $ag_andamento = mysqli_query($conn, "SELECT count(id_agendamento) from agendamento where status_agendamento = 1");
 $ag_finalizados = mysqli_query($conn, "SELECT count(id_agendamento) from agendamento where status_agendamento = 2");
