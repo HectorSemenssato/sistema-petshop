@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'protege_pagina.php';
 ?>
 
@@ -21,23 +22,23 @@ include 'protege_pagina.php';
 
     $sql = "SELECT 
                 agendamento.id_agendamento,
-                agendamento.nome_cliente,
                 agendamento.data_agendamento,
                 agendamento.hora_agendamento,
                 funcionario.nome_funcionario,
+                clientes.nome_cliente,
                 ficha_animal.nome from agendamento 
                 JOIN funcionario ON agendamento.id_funcionario = funcionario.id_funcionario 
                 JOIN ficha_animal ON agendamento.id_animal = ficha_animal.id_animal
+                JOIN clientes ON agendamento.id_cliente = clientes.id_cliente
                     WHERE agendamento.id_agendamento LIKE ?
-                        OR funcionario.nome_funcionario LIKE ?
+                        OR clientes.nome_cliente LIKE ?
                         OR ficha_animal.nome LIKE ?
-                        OR agendamento.nome_cliente LIKE ?
                         OR agendamento.data_agendamento LIKE ?
                         OR agendamento.hora_agendamento LIKE ?";
     $para_pesquisa = "%" . $pesquisa . "%";
 
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("ssssss", $para_pesquisa, $para_pesquisa, $para_pesquisa, $para_pesquisa, $para_pesquisa, $para_pesquisa);
+        $stmt->bind_param("sssss", $para_pesquisa, $para_pesquisa, $para_pesquisa, $para_pesquisa, $para_pesquisa);
 
         $stmt->execute();
         $dados = $stmt->get_result();
@@ -86,69 +87,84 @@ include 'protege_pagina.php';
                     <tbody>
                         <?php
                         if ($dados->num_rows > 0) {
-
                             while ($linha = mysqli_fetch_assoc($dados)) {
                                 $idagendamento = $linha['id_agendamento'];
                                 $funcionario = $linha['nome_funcionario'];
                                 $animal = $linha['nome'];
-                                $nomecliente = $linha['nome_cliente'];
+                                $nome_cliente = $linha['nome_cliente'];
                                 $dataagendamento = dataPadraoBR($linha['data_agendamento']);
                                 $horaagendamento = $linha['hora_agendamento'];
+                                $cliente_para_alerta = htmlspecialchars($linha['nome_cliente'], ENT_QUOTES);
 
                                 echo "<tr>
                                 <th scope='row'>$idagendamento</th>
                                 <td>$funcionario</td>
                                 <td>$animal</td>
-                                <td>$nomecliente</td>
+                                <td>$nome_cliente</td>
                                 <td>$dataagendamento</td>
                                 <td>$horaagendamento</td>
-                                <td width=360px><a href='editar.php?id_agendamento=$idagendamento' class='btn btn-sm btn-editar'>Editar</a>
-                                    <a href='#' class='btn btn-sm btn-exclusao' data-bs-toggle='modal' data-bs-target='#modalconfirmacao'
-                                    onclick=" . '"' . "pegar_dados($idagendamento)" . '"' . ">Excluir</a>
-                                     <button type='button' class='btn btn-sm btn-finalizaagendamento' data-bs-dismiss='modal'>Finalizar</button>
+                                <td>
+                                    <a href='editar.php?id_agendamento=$idagendamento' class='btn btn-sm btn-editar'>Editar</a>
+                                    <a href='javascript:void(0);' class='btn btn-sm btn-exclusao' onclick='confirmarExclusao($idagendamento, \"$cliente_para_alerta\")'>Excluir</a>
+                                    <button type='button' class='btn btn-sm btn-finalizaagendamento'>Finalizar</button>
                                 </td>
                              </tr>";
                             }
-                        }else{
-                             echo "<tr><td colspan='7' class='text-center'>Nenhum agendamento encontrado.</td></tr>";
+                        } else {
+                            echo "<tr><td colspan='7' class='text-center'>Nenhum agendamento encontrado.</td></tr>";
                         }
 
                         ?>
                     </tbody>
             </div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="modalconfirmacao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Confirmação de exclusão</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="excluir_toDB.php" method="POST">
-                                <p>Você tem certeza de que deseja excluir esse registro?</p>
-                                <strong>Essa ação não poderá ser desfeita.</strong>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="submit" class="btn btn-success" value="Sim">
-                            <input type="hidden" name="id" id="id_exclusao" value="">
-                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <script type="text/javascript">
-                function pegar_dados(id_exclusao) {
-                    document.getElementById('id_exclusao').value = id_exclusao;
-                }
-            </script>
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script type="text/javascript">
+                function confirmarExclusao(id, nomeCliente) {
+                    Swal.fire({
+                        title: 'Você tem certeza?',
+                        text: "Deseja realmente excluir o agendamento de " + nomeCliente + "? Esta ação não poderá ser desfeita!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: "Sim, excluir!",
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = 'excluir_toDB.php?id=' + id;
+
+                        } else {
+
+                        }
+                    })
+                }
+
+                <?php
+                if (isset($_SESSION['mensagem_sucesso'])) {
+                    $mensagem = $_SESSION['mensagem_sucesso'];
+
+                    echo "Swal.fire({
+                        icon: 'success',
+                        title: 'Tudo ok!',
+                        text: '$mensagem'   
+                    });";
+                    unset($_SESSION['mensagem_sucesso']);
+                } else if (isset($_SESSION['mensagem_falha'])) {
+                    $mensagem = $_SESSION['mensagem_falha'];
+
+                    echo "Swal.fire({
+                        icon: 'error',
+                        title: 'Hum... Não foi dessa vez!',
+                        text: $mensagem
+                    });";
+                    unset($_SESSION['mensagem_falha']);
+                }
+                ?>
+            </script>
+
 </body>
 
 </html>
