@@ -4,7 +4,7 @@ include 'conexao.php';
 
 $pesquisa = $_POST['busca'] ?? '';
 
-$sql = "SELECT id_animal, nome FROM ficha_animal ORDER BY nome ASC";
+$sql = "SELECT id_cliente, nome_cliente FROM clientes ORDER BY nome_cliente ASC";
 
 if ($stmt = $conn->prepare($sql)) {
     $stmt->execute();
@@ -40,20 +40,21 @@ if ($stmt = $conn->prepare($sql)) {
                                     <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>
                                 </p>
                             </div>
-                            <div class="input__container  input_ag_nomecliente" data-label="Nome do cliente: (não configurado)">
-                                <input type="text" class="input__search" name="nomecliente_agendamento">
-                            </div>
-                            <div class="input__container input_ag_idanimal" data-label="Nome do animal">
-                                <select class="input__search" name="idanimal_agendamento">
+                            <div class="input__container  input_ag_nomecliente" data-label="Nome do cliente:">
+                                <select class="input__search" name="nomecliente_agendamento" id="cliente_select">
                                     <?php
                                     if ($dados->num_rows > 0) {
-                                        echo "<option value=''>Selecione um animal...</option>";
+                                        echo "<option value=''>Selecione um cliente...</option>";
                                         while ($linha = mysqli_fetch_assoc($dados)) {
-                                            echo "<option value='{$linha['id_animal']}'>{$linha['nome']}</option>";
+                                            echo "<option value='{$linha['id_cliente']}'>{$linha['nome_cliente']}</option>";
                                         }
                                     }
                                     ?>
-
+                                </select>
+                            </div>
+                            <div class="input__container input_ag_idanimal" data-label="Nome do animal">
+                                <select class="input__search" name="idanimal_agendamento" id="animal_select" disabled>
+                                    <option value=''>Aguardando seleção de cliente...</option>
                                 </select>
                             </div>
                             <div class="input__container input_ag_dataagenda" data-label="Data do agendamento:">
@@ -84,6 +85,45 @@ if ($stmt = $conn->prepare($sql)) {
         </div>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const clienteSelect = document.getElementById('cliente_select');
+                const animalSelect = document.getElementById('animal_select');
+
+                clienteSelect.addEventListener('change', function() {
+                    const clienteId = this.value;
+
+                    animalSelect.innerHTML = '<option value="">Carregando...</option>';
+                    animalSelect.disabled = true;
+                    if (!clienteId) {
+                        animalSelect.innerHTML = '<option value="">Aguardando seleção de cliente...</option>';
+                        return;
+                    }
+
+                    fetch('get_animais.php?cliente_id=' + clienteId)
+                        .then(response => response.json())
+                        .then(data => {
+                            animalSelect.innerHTML = '<option value="">Selecione um animal...</option>';
+
+                            if (data.length > 0) {
+                                data.forEach(function(animal) {
+                                    const option = document.createElement('option');
+                                    option.value = animal.id_animal;
+                                    option.textContent = animal.nome;
+                                    animalSelect.appendChild(option);
+                                });
+                                animalSelect.disabled = false;
+                            } else {
+                                animalSelect.innerHTML = '<option value="">Nenhum animal encontrado</option>';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erro ao buscar animais:', error);
+                            animalSelect.innerHTML = '<option value="">Erro ao carregar</option>';
+                        });
+                });
+            });
+        </script>
 </body>
 
 </html>
