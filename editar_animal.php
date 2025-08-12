@@ -1,3 +1,3 @@
 <?php
-    include 'protege_pagina.php'; // Nosso guardião!
+    include 'protege_pagina.php'; 
 ?>
