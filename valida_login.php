@@ -8,9 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
 
-    if (empty($username) || empty($password)) {
-        die("usuário não encontrado");
-    }
 
     $sql = "select id_usuario, nome_usuario, senha_usuario FROM usuarios WHERE nome_usuario = ?";
     if ($stmt = $conn->prepare($sql)) {
@@ -30,14 +27,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: index.php");
                 exit();
             } else {
-                $_SESSION['login_error'] = "Usuário ou senha inválidos.";
-                header("Location: login.php");
-                exit();
+                $mensagem = $_SESSION['login_error'] = "Usuário ou senha inválidos.";
             }
             $stmt->close();
+            $conn->close();
+        } else {
+            $mensagem = $_SESSION['login_error'] = "Usuário ou senha inválidos.";
         }
-        $conn->close();
-    }else{
+        header("Location: login.php");
+        exit();
+
+    } else {
         header("Location: login.php");
         exit();
     }
