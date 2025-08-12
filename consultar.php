@@ -75,12 +75,12 @@ include 'protege_pagina.php';
             <div class="card-body p-0">
                 <table class="table mb-0 table table-bordered">
                     <tr>
-                        <th scope="col">ID do agendamento</th>
-                        <th scope="col">Funcionário</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Horário</th>
                         <th scope="col">Animal</th>
-                        <th scope="col">Nome do cliente</th>
-                        <th scope="col">Data do agendamento</th>
-                        <th scope="col">Hora do agendamento</th>
+                        <th scope="col">Tutor do animal</th>
+                        <th scope="col">Doutor</th>
                         <th scope="col">Funções</th>
                     </tr>
                     </thead>
@@ -98,11 +98,11 @@ include 'protege_pagina.php';
 
                                 echo "<tr>
                                 <th scope='row'>$idagendamento</th>
-                                <td>$funcionario</td>
-                                <td>$animal</td>
-                                <td>$nome_cliente</td>
                                 <td>$dataagendamento</td>
                                 <td>$horaagendamento</td>
+                                <td>$animal</td>
+                                <td>$nome_cliente</td>
+                                <td>$funcionario</td>
                                 <td>
                                     <a href='editar.php?id_agendamento=$idagendamento' class='btn btn-sm btn-editar'>Editar</a>
                                     <a href='javascript:void(0);' class='btn btn-sm btn-exclusao' onclick='confirmarExclusao($idagendamento, \"$cliente_para_alerta\")'>Excluir</a>
