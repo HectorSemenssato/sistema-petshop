@@ -32,7 +32,6 @@ create table ficha_animal(
     idade int,
     raca varchar(50),
     porte varchar(15),
-    tutor varchar(70)
 );
 
 create table agendamento(
