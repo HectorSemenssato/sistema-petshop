@@ -51,11 +51,17 @@ if ($stmt = $conn->prepare($sql)) {
                                     }
                                     ?>
                                 </select>
+                                <a href="#" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#modalNovoCliente">
+                                    Novo cliente
+                                </a>
                             </div>
                             <div class="input__container input_ag_idanimal" data-label="Nome do animal">
                                 <select class="input__search" name="idanimal_agendamento" id="animal_select" disabled>
                                     <option value=''>Aguardando seleção de cliente...</option>
                                 </select>
+                                <a href="#" id="btn-novo-animal" class="btn btn-sm btn-success d-none" data-bs-toggle="modal" data-bs-target="#modalNovoAnimal">
+                                    Novo animal
+                                </a>
                             </div>
                             <div class="input__container input_ag_dataagenda" data-label="Data do agendamento:">
                                 <input type="date" class="input__search" name="data_agendamento" required>
@@ -82,48 +88,178 @@ if ($stmt = $conn->prepare($sql)) {
                     </div>
                 </div>
             </form>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const clienteSelect = document.getElementById('cliente_select');
-                const animalSelect = document.getElementById('animal_select');
+            <div class="modal fade" id="modalNovoCliente">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Cadastro de novo cliente</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="form-novo-cliente">
+                                <div class="mb-3">
+                                    <label for="nome_cliente_modal" class="form-label">Nome do cliente:</label>
+                                    <input type="text" class="form-control" id="nome_cliente_modal" name="nome_cliente" required>
+                                    <label for="telefone_cliente_modal" class="form-label">Telefone: (formato: "(99) 99999-9999")</label>
+                                    <input type="text" class="form-control" id="telefone_modal" name="telefone" required>
+                                    <label for="email_cliente_modal" class="form-label">Email:</label>
+                                    <input type="text" class="form-control" id="email_modal" name="email" required>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary" id="btn-salvar-cliente">Salvar cliente</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalNovoAnimal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Cadastro de novo animal</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="form-novo-animal">
+                                <div class="mb-3">
+                                    <label for="nome_animal_modal" class="form-label">Nome do animal:</label>
+                                    <input type="text" class="form-control" id="nome_animal_modal" name="nome_animal" required>
+                                    <label for="idade_animal_modal" class="form-label">Idade:</label>
+                                    <input type="text" class="form-control" id="idade_animal_modal" name="idade_animal" required>
+                                    <label for="raca_animal_modal" class="form-label">Raça:</label>
+                                    <input type="text" class="form-control" id="raca_modal" name="raca" required>
+                                    <label for="porte_animal_modal" class="form-label">Porte:</label>
+                                    <input type="text" class="form-control" id="porte_modal" name="porte" required>
+                                    <input type="hidden" name="id_cliente" id="id-cliente-para-animal" value="idclienteAddEventListener">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary" id="btn-salvar-animal">Salvar animal</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const modalNovoClienteEl = document.getElementById('modalNovoCliente');
+                    const modalNovoCliente = new bootstrap.Modal(modalNovoClienteEl);
+                    const formNovoCliente = document.getElementById('form-novo-cliente');
+                    const btnSalvarCliente = document.getElementById('btn-salvar-cliente');
 
-                clienteSelect.addEventListener('change', function() {
-                    const clienteId = this.value;
 
-                    animalSelect.innerHTML = '<option value="">Carregando...</option>';
-                    animalSelect.disabled = true;
-                    if (!clienteId) {
-                        animalSelect.innerHTML = '<option value="">Aguardando seleção de cliente...</option>';
-                        return;
-                    }
+                    btnSalvarCliente.addEventListener('click', function() {
+                        const formData = new FormData(formNovoCliente);
+                        fetch('salvar_cliente_ajax.php', {
+                                method: 'POST',
+                                body: formData
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.sucesso) {
+                                    const novaOpcao = new Option(data.nome_cliente, data.id_cliente);
+                                    clienteSelect.add(novaOpcao, null);
+                                    novaOpcao.selected = true;
+                                    clienteSelect.dispatchEvent(new Event('change'));
+                                    modalNovoCliente.hide();
+                                    formNovoCliente.reset();
 
-                    fetch('get_animais.php?cliente_id=' + clienteId)
-                        .then(response => response.json())
-                        .then(data => {
-                            animalSelect.innerHTML = '<option value="">Selecione um animal...</option>';
+                                    Swal.fire('Tudo ok!', 'Novo cliente cadastrado', 'success');
+                                } else {
+                                    Swal.fire('Erro!', data.mensagem, 'error');
+                                }
 
-                            if (data.length > 0) {
-                                data.forEach(function(animal) {
-                                    const option = document.createElement('option');
-                                    option.value = animal.id_animal;
-                                    option.textContent = animal.nome;
-                                    animalSelect.appendChild(option);
-                                });
-                                animalSelect.disabled = false;
-                            } else {
-                                animalSelect.innerHTML = '<option value="">Nenhum animal encontrado</option>';
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Erro ao buscar animais:', error);
-                            animalSelect.innerHTML = '<option value="">Erro ao carregar</option>';
-                        });
+                            })
+                            .catch(error => {
+                                console.error('Erro na requisição:', error);
+                                Swal.fire('Oops!', 'Ocorreu um erro de comunicação.', 'error');
+                            });
+                    });
+
+                    const clienteSelect = document.getElementById('cliente_select');
+                    const animalSelect = document.getElementById('animal_select');
+                    const modalNovoAnimalEl = document.getElementById('modalNovoAnimal');
+                    const modalNovoAnimal = new bootstrap.Modal(modalNovoAnimalEl);
+                    const formNovoAnimal = document.getElementById('form-novo-animal');
+                    const btnSalvarAnimal = document.getElementById('btn-salvar-animal');
+                    const btnNovoAnimal = document.getElementById('btn-novo-animal');
+                    const idClienteAnimal = document.getElementById('id-cliente-para-animal');
+
+                    btnNovoAnimal.addEventListener('click', function() {
+                        const clienteId = this.value;
+                    });
+
+                    btnSalvarAnimal.addEventListener('click', function() {
+                        const formData = new FormData(formNovoAnimal);
+                        fetch('salvar_animal_ajax.php', {
+                                method: 'POST',
+                                body: formData
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.sucesso) {
+                                    const novaOpcao = new Option(data.nome, data.id_animal);
+
+                                    animalSelect.add(novaOpcao, null);
+                                    novaOpcao.selected = true;
+                                    modalNovoAnimal.hide();
+                                    formNovoAnimal.reset();
+
+                                    Swal.fire('Tudo ok!', 'Novo animal cadastrado', 'success');
+                                } else {
+                                    Swal.fire('Alguma coisa deu errado...', data.message, 'error');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Erro na requisição:', error);
+                                Swal.fire('Oops!', 'Ocorreu um erro de comunicação.', 'error');
+                            });
+
+                    });
+
+                    clienteSelect.addEventListener('change', function() {
+                        const clienteId = this.value;
+
+                        animalSelect.innerHTML = '<option value="">Carregando...</option>';
+                        animalSelect.disabled = true;
+                        if (!clienteId) {
+                            animalSelect.innerHTML = '<option value="">Aguardando seleção de cliente...</option>';
+                            return;
+                        }
+
+                        fetch('get_animais.php?cliente_id=' + clienteId)
+                            .then(response => response.json())
+                            .then(data => {
+                                animalSelect.innerHTML = '<option value="">Selecione um animal...</option>';
+
+                                if (data.length > 0) {
+                                    data.forEach(function(animal) {
+                                        const option = document.createElement('option');
+                                        option.value = animal.id_animal;
+                                        option.textContent = animal.nome;
+                                        animalSelect.appendChild(option);
+                                    });
+                                    animalSelect.disabled = false;
+                                    btnNovoAnimal.classList.add('d-none');
+                                } else {
+                                    animalSelect.innerHTML = '<option value="">Nenhum animal encontrado</option>';
+
+                                    btnNovoAnimal.classList.remove('d-none');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Erro ao buscar animais:', error);
+                                animalSelect.innerHTML = '<option value="">Erro ao carregar</option>';
+                            });
+                    });
                 });
-            });
-        </script>
+            </script>
 </body>
 
 </html>
