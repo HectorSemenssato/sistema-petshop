@@ -9,11 +9,11 @@ $porte = $_POST['porte'] ?? '';
 $id_cliente = $_POST['id_cliente'] ?? 0;
 
 if(empty($nome_animal) || empty($id_cliente)) {
-    echo json_encode(['sucesso' => false, 'mensagem' => 'O nome do animal é obrigatório.']);
+    echo json_encode(['sucesso' => false, 'mensagem' => 'A variavel de nome do animal ou o id do cliente esta vazia.']);
     exit();
 }
 
-$sql = "INSERT into ficha_animal(nome, idade, raca, porte, id_cliente) VALUES (?, ?, ?, ?, ?, ?);";
+$sql = "INSERT into ficha_animal(nome, idade, raca, porte, id_cliente) VALUES (?, ?, ?, ?, ?);";
 
 if($stmt = $conn->prepare($sql)){
     $stmt->bind_param("sissi", $nome_animal, $idade, $raca, $porte, $id_cliente);

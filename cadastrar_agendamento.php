@@ -127,12 +127,12 @@ if ($stmt = $conn->prepare($sql)) {
                                     <label for="nome_animal_modal" class="form-label">Nome do animal:</label>
                                     <input type="text" class="form-control" id="nome_animal_modal" name="nome_animal" required>
                                     <label for="idade_animal_modal" class="form-label">Idade:</label>
-                                    <input type="text" class="form-control" id="idade_animal_modal" name="idade_animal" required>
+                                    <input type="text" class="form-control" id="idade_animal_modal" name="idade" required>
                                     <label for="raca_animal_modal" class="form-label">Raça:</label>
                                     <input type="text" class="form-control" id="raca_modal" name="raca" required>
                                     <label for="porte_animal_modal" class="form-label">Porte:</label>
                                     <input type="text" class="form-control" id="porte_modal" name="porte" required>
-                                    <input type="hidden" name="id_cliente" id="id-cliente-para-animal" value="idclienteAddEventListener">
+                                    <input type="hidden" name="id_cliente" id="id-cliente-para-animal" value="">
                                 </div>
                             </form>
                         </div>
@@ -178,7 +178,7 @@ if ($stmt = $conn->prepare($sql)) {
                             })
                             .catch(error => {
                                 console.error('Erro na requisição:', error);
-                                Swal.fire('Oops!', 'Ocorreu um erro de comunicação.', 'error');
+                                Swal.fire('Algo deu errado...', 'Ocorreu um erro de comunicação.', 'error');
                             });
                     });
 
@@ -192,28 +192,33 @@ if ($stmt = $conn->prepare($sql)) {
                     const idClienteAnimal = document.getElementById('id-cliente-para-animal');
 
                     btnNovoAnimal.addEventListener('click', function() {
-                        const clienteId = this.value;
+                        idClienteAnimal.value = clienteSelect.value;
                     });
 
                     btnSalvarAnimal.addEventListener('click', function() {
                         const formData = new FormData(formNovoAnimal);
+
                         fetch('salvar_animal_ajax.php', {
                                 method: 'POST',
                                 body: formData
                             })
                             .then(response => response.json())
                             .then(data => {
+                                console.log("Recibo recebido do PHP:", data);
                                 if (data.sucesso) {
+                                    console.log("1. Bloco de sucesso iniciado. Dados:", data);
                                     const novaOpcao = new Option(data.nome, data.id_animal);
-
+                                    console.log("2. Nova opção criada:", novaOpcao);
                                     animalSelect.add(novaOpcao, null);
+                                    console.log("3. Opção adicionada ao menu de animais.");
                                     novaOpcao.selected = true;
+                                      console.log("4. Nova opção selecionada.");
                                     modalNovoAnimal.hide();
                                     formNovoAnimal.reset();
 
                                     Swal.fire('Tudo ok!', 'Novo animal cadastrado', 'success');
                                 } else {
-                                    Swal.fire('Alguma coisa deu errado...', data.message, 'error');
+                                    Swal.fire('Algo deu errado...', data.message, 'error');
                                 }
                             })
                             .catch(error => {
