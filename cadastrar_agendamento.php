@@ -13,6 +13,17 @@ if ($stmt = $conn->prepare($sql)) {
 } else {
     $dados = null;
 }
+
+$sql_funcionarios = "SELECT id_funcionario, nome_funcionario FROM funcionario ORDER BY nome_funcionario ASC";
+ 
+if ($stmt = $conn->prepare($sql_funcionarios)) {
+    $stmt->execute();
+    $dados_funcionarios = $stmt->get_result();
+    $stmt->close();
+} else {
+    $dados_funcionarios = null;
+}
+
 ?>
 
 <!doctype html>
@@ -31,14 +42,20 @@ if ($stmt = $conn->prepare($sql)) {
         <div class="container mt-4">
             <h2 id="title">Agendamento</h2>
             <form action="cadastrar_toDB.php">
-                <input type="hidden" name="funcionario_agendamento" value="<?php echo htmlspecialchars($_SESSION['user_id']); ?>">
                 <div class="row justify-content-center">
                     <div class="col-md-7 col-lg-8">
                         <div class="inputs-section">
                             <div class="input__container" data-label="Funcionário responsável">
-                                <p class="form-control-plaintext">
-                                    <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>
-                                </p>
+                               <select class="input__search" name="funcionario_agendamento" id="funcionario_select">
+                                <?php
+                                if($dados_funcionarios->num_rows > 0){
+                                    echo "<option value=''>Selecione quem fará o atendimento...</option>";
+                                    while($linha = mysqli_fetch_assoc($dados_funcionarios)){
+                                        echo "<option value='{$linha['id_funcionario']}'>{$linha['nome_funcionario']}</option>";
+                                    }
+                                }
+                                ?>
+                               </select>
                             </div>
                             <div class="input__container  input_ag_nomecliente" data-label="Nome do cliente:">
                                 <select class="input__search" name="nomecliente_agendamento" id="cliente_select">
@@ -153,7 +170,6 @@ if ($stmt = $conn->prepare($sql)) {
                     const formNovoCliente = document.getElementById('form-novo-cliente');
                     const btnSalvarCliente = document.getElementById('btn-salvar-cliente');
 
-
                     btnSalvarCliente.addEventListener('click', function() {
                         const formData = new FormData(formNovoCliente);
                         fetch('salvar_cliente_ajax.php', {
@@ -204,21 +220,17 @@ if ($stmt = $conn->prepare($sql)) {
                             })
                             .then(response => response.json())
                             .then(data => {
-                                console.log("Recibo recebido do PHP:", data);
                                 if (data.sucesso) {
-                                    console.log("1. Bloco de sucesso iniciado. Dados:", data);
-                                    const novaOpcao = new Option(data.nome, data.id_animal);
-                                    console.log("2. Nova opção criada:", novaOpcao);
+                                    const novaOpcao = new Option(data.nome_animal, data.id_animal);
                                     animalSelect.add(novaOpcao, null);
-                                    console.log("3. Opção adicionada ao menu de animais.");
                                     novaOpcao.selected = true;
-                                      console.log("4. Nova opção selecionada.");
+                                    animalSelect.disabled = false;
                                     modalNovoAnimal.hide();
                                     formNovoAnimal.reset();
 
                                     Swal.fire('Tudo ok!', 'Novo animal cadastrado', 'success');
                                 } else {
-                                    Swal.fire('Algo deu errado...', data.message, 'error');
+                                    Swal.fire('Algo deu errado...', data.messagem, 'error');
                                 }
                             })
                             .catch(error => {
@@ -232,12 +244,12 @@ if ($stmt = $conn->prepare($sql)) {
                         const clienteId = this.value;
 
                         animalSelect.innerHTML = '<option value="">Carregando...</option>';
-                        animalSelect.disabled = true;
                         if (!clienteId) {
                             animalSelect.innerHTML = '<option value="">Aguardando seleção de cliente...</option>';
+                            btnNovoAnimal.classList.add('d-none');
                             return;
                         }
-
+                        btnNovoAnimal.classList.remove('d-none');
                         fetch('get_animais.php?cliente_id=' + clienteId)
                             .then(response => response.json())
                             .then(data => {
@@ -251,19 +263,32 @@ if ($stmt = $conn->prepare($sql)) {
                                         animalSelect.appendChild(option);
                                     });
                                     animalSelect.disabled = false;
-                                    btnNovoAnimal.classList.add('d-none');
                                 } else {
                                     animalSelect.innerHTML = '<option value="">Nenhum animal encontrado</option>';
-
-                                    btnNovoAnimal.classList.remove('d-none');
+                          
                                 }
                             })
                             .catch(error => {
-                                console.error('Erro ao buscar animais:', error);
+                                console.error('Erro ao buscar animais: ', error);
                                 animalSelect.innerHTML = '<option value="">Erro ao carregar</option>';
                             });
                     });
                 });
+
+                <?php
+                if(isset($_SESSION['notificacao'])){
+                    $tipo = htmlspecialchars($_SESSION['notificacao']['tipo']);
+                    $texto = htmlspecialchars($_SESSION['notificacao']['texto']);
+                    $title = htmlspecialchars($_SESSION['notificacao']['title']);
+                    
+                    echo "Swal.fire({
+                        icon: '$tipo',
+                        title: '$title',
+                        text: '$texto'
+                    });";
+                    unset($_SESSION['notificacao']);
+                }
+                ?>
             </script>
 </body>
 
