@@ -135,32 +135,21 @@ include 'protege_pagina.php';
                     }).then((result) => {
                         if (result.isConfirmed) {
                             window.location.href = 'excluir_toDB.php?id=' + id;
-
-                        } else {
-
                         }
-                    })
+                    });
                 }
-
                 <?php
-                if (isset($_SESSION['mensagem_sucesso'])) {
-                    $mensagem = $_SESSION['mensagem_sucesso'];
+                if (isset($_SESSION['notificacao'])) {
+                    $tipo = htmlspecialchars($_SESSION['notificacao']['tipo']);
+                    $texto = htmlspecialchars($_SESSION['notificacao']['texto']);
+                    $title = htmlspecialchars($_SESSION['notificacao']['title']);
 
                     echo "Swal.fire({
-                        icon: 'success',
-                        title: 'Tudo ok!',
-                        text: '$mensagem'   
+                        icon: '$tipo',
+                        title: '$title',
+                        text: '$texto'   
                     });";
-                    unset($_SESSION['mensagem_sucesso']);
-                } else if (isset($_SESSION['mensagem_falha'])) {
-                    $mensagem = $_SESSION['mensagem_falha'];
-
-                    echo "Swal.fire({
-                        icon: 'error',
-                        title: 'Hum... Não foi dessa vez!',
-                        text: $mensagem
-                    });";
-                    unset($_SESSION['mensagem_falha']);
+                    unset($_SESSION['notificacao']);
                 }
                 ?>
             </script>
