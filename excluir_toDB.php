@@ -11,9 +11,17 @@ if ($stmt = $conn->prepare($sql)) {
   $stmt->bind_param("i", $idagendamento);
 
   if ($stmt->execute() == true) {
-    $_SESSION['mensagem_sucesso'] = "Exclusão feita com sucesso!";
+    $_SESSION['notificacao'] = [
+      'tipo' => 'success',
+      'title' => 'Tudo ok!',
+      'texto' => 'Agendamento excluído com sucesso'
+    ];
   } else {
-    $_SESSION['mensagem_falha'] = "Não foi possível excluir este agendamento.";
+    $_SESSION['notificacao'] = [
+      'tipo' => 'error',
+      'title' => 'Hum... Não foi dessa vez!',
+      'texto' => 'Erro na exclusão do agendamento'
+    ];
   }
   $stmt->close();
   $conn->close();
