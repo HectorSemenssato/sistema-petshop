@@ -1,3 +1,34 @@
+<?php
+include 'protege_pagina.php';
+include 'conexao.php';
+
+$id_agendamento = $_GET['id_agendamento'];
+
+if($id_agendamento == 0){
+    header('Location: consulta.php');
+    exit();
+}
+
+$sql_agendamento = "SELECT a.id_agendamento, c.id_cliente, fa.id_animal, f.id_funcionario, a.data_agendamento, a.hora_agendamento
+                    FROM agendamento a JOIN funcionario f ON a.id_funcionario = f.id_funcuonario
+                                       JOIN clientes c ON a.id_cliente = c.id_cliente
+                                       JOIN ficha_animal fa ON ";
+
+if($stmt = $conn->prepare($sql_agendamento)){
+    $stmt->bind_param("i", $id_agendamento);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    if($resultado->num_rows === 1){
+        $agendamento = $resultado->fetch_assoc();
+    }else{
+        header('Location: consultar.php');
+        exit();
+    }
+    $stmt->close();
+}
+?>
+
+<!-- Fazer alterações na página de editar -->
 <!doctype html>
 <html lang="en">
   <head>
