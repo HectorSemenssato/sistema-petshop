@@ -1,26 +1,12 @@
 <?php
 session_start();
 include 'protege_pagina.php';
-?>
 
-<!doctype html>
-<html lang="en">
+$pesquisa = $_POST['busca'] ?? '';
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Consulta de agendamentos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/styles.css">
-</head>
+include "conexao.php";
 
-<body>
-    <?php
-    $pesquisa = $_POST['busca'] ?? '';
-
-    include "conexao.php";
-
-    $sql = "SELECT 
+$sql = "SELECT 
                 agendamento.id_agendamento,
                 agendamento.data_agendamento,
                 agendamento.hora_agendamento,
@@ -35,19 +21,56 @@ include 'protege_pagina.php';
                         OR ficha_animal.nome LIKE ?
                         OR agendamento.data_agendamento LIKE ?
                         OR agendamento.hora_agendamento LIKE ?";
-    $para_pesquisa = "%" . $pesquisa . "%";
+$para_pesquisa = "%" . $pesquisa . "%";
 
-    if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("sssss", $para_pesquisa, $para_pesquisa, $para_pesquisa, $para_pesquisa, $para_pesquisa);
+if ($stmt = $conn->prepare($sql)) {
+    $stmt->bind_param("sssss", $para_pesquisa, $para_pesquisa, $para_pesquisa, $para_pesquisa, $para_pesquisa);
 
-        $stmt->execute();
-        $dados = $stmt->get_result();
-        $stmt->close();
+    $stmt->execute();
+    $dados = $stmt->get_result();
+    $stmt->close();
+} else {
+    $dados = null;
+}
+
+$sql_agendamento = "SELECT a.id_agendamento, c.id_cliente, fa.id_animal, f.id_funcionario, a.data_agendamento, a.hora_agendamento
+                    FROM agendamento a JOIN funcionario f ON a.id_funcionario = f.id_funcionario
+                                       JOIN clientes c ON a.id_cliente = c.id_cliente
+                                       JOIN ficha_animal fa ON a.id_animal = fa.id_animal
+                    WHERE a.id_agendamento = ?";
+
+if ($stmt = $conn->prepare($sql_agendamento)) {
+    $stmt->bind_param("i", $id_agendamento);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    if ($resultado->num_rows === 1) {
+        $agendamento = $resultado->fetch_assoc();
     } else {
-        $dados = null;
+        header('Location: consultar.php');
+        exit();
     }
-    ?>
+    $stmt->close();
+}
 
+$sql_funcionarios = "SELECT id_funcionario, nome_funcionario FROM funcionario ORDER BY nome_funcionario ASC";
+$dados_funcionario = $conn->query($sql_funcionarios);
+
+$sql_clientes = "SELECT id_cliente, nome_cliente FROM clientes ORDER BY nome_cliente ASC";
+$dados_cliente = $conn->query($sql_clientes);
+?>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Consulta de agendamentos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
     <div class="container mb-4">
         <div class="row">
             <div class="col">
@@ -104,7 +127,7 @@ include 'protege_pagina.php';
                                 <td>$nome_cliente</td>
                                 <td>$funcionario</td>
                                 <td>
-                                    <a href='editar.php?id_agendamento=$idagendamento' class='btn btn-sm btn-editar'>Editar</a>
+                                    <a href='#' id='btn-novo-animal' class='btn btn-sm btn-editar' data-bs-toggle='modal' data-bs-target='#modalEdicao'>Editar</a>
                                     <a href='javascript:void(0);' class='btn btn-sm btn-exclusao' onclick='confirmarExclusao($idagendamento, \"$cliente_para_alerta\")'>Excluir</a>
                                     <button type='button' class='btn btn-sm btn-finalizaagendamento'>Finalizar</button>
                                 </td>
@@ -116,43 +139,109 @@ include 'protege_pagina.php';
 
                         ?>
                     </tbody>
+                </table>
             </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalEdicao" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Agendamento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="editar_toDB.php" method="POST">
+                        <div class="row justify-content-center">
+                            <div class="col-md-7 col-lg-8">
+                                <div class="inputs-section">
+                                    <div class="input__container" data-label="Funcionário responsável">
+                                        <select class="input__search" name="id_funcionario" required>
+                                            <option value="">Selecione um funcionário...</option>
+                                            <?php while ($funcionario = $dados_funcionario->fetch_assoc()): ?>
+                                                <option value="<?php echo $funcionario['id_funcionario']; ?>"
+                                                    <?php echo ($funcionario['id_funcionario'] == $agendamento['id_funcionario']) ? 'selected' : ''; ?>>
+                                                    <?php echo htmlspecialchars($funcionario['nome_funcionario']); ?>
+                                                </option>
+                                            <?php endwhile; ?>
+                                        </select>
+                                        <div class="input__container" data-label="Nome do cliente:">
+                                            <select class="input_search" name="id_cliente" required>
+                                                <option value="">Selecione um cliente...</option>
+                                                <?php while ($cliente = $dados_cliente->fetch_assoc()): ?>
+                                                    <option value="<?php echo $cliente['id_cliente']; ?>"
+                                                        <?php echo ($cliente['id_cliente'] == $agendamento['id_cliente']) ? 'selected' : ''; ?>>
+                                                        <?php echo htmlspecialchars($cliente['nome_cliente']); ?>
+                                                    </option>
+                                                <?php endwhile; ?>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="data_agendamento">Data do agendamento:</label>
+                                            <input type="date" class="form-control" name="data_agendamento" required value="<?php echo $linha['data_agendamento'] ?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="hora_agendamento">Hora do agendamento:</label>
+                                            <input type="time" class="form-control" name="hora_agendamento" required value="<?php echo $linha['hora_agendamento'] ?>">
+                                        </div>
 
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <script type="text/javascript">
-                function confirmarExclusao(id, nomeCliente) {
-                    Swal.fire({
-                        title: 'Você tem certeza?',
-                        text: "Deseja realmente excluir o agendamento de " + nomeCliente + "? Esta ação não poderá ser desfeita!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: "Sim, excluir!",
-                        cancelButtonText: 'Cancelar'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = 'excluir_toDB.php?id=' + id;
-                        }
-                    });
+                                        <button type="submit" class="btn btn-primary" style="text-align: center;" value="Salvar alterações">Salvar edição</button>
+                                        <a href="consultar.php" class="btn btn-secondary">Voltar</a>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-primary" id="btn-salvar-edicao">Salvar Alterações</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
+        function confirmarExclusao(id, nomeCliente) {
+            Swal.fire({
+                title: 'Você tem certeza?',
+                text: "Deseja realmente excluir o agendamento de " + nomeCliente + "? Esta ação não poderá ser desfeita!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#8567e6',
+                cancelButtonColor: 'rgba(119, 119, 119, 1)',
+                confirmButtonText: "Sim, excluir!",
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'excluir_toDB.php?id=' + id;
                 }
-                <?php
-                if (isset($_SESSION['notificacao'])) {
-                    $tipo = htmlspecialchars($_SESSION['notificacao']['tipo']);
-                    $texto = htmlspecialchars($_SESSION['notificacao']['texto']);
-                    $title = htmlspecialchars($_SESSION['notificacao']['title']);
+            });
+        }
 
-                    echo "Swal.fire({
+        const btnEditarAgendamento = document.getElementById('btn-novo-animal');
+        const modalEditarAgendamentoEl = document.getElementById('modalEditar');
+        const modalEditarAgendamento = new bootstrap.Modal(modalNovoAnimalEl);
+        const btnSalvarEdicao = document.getElementById('btn-salvar-edicao');
+
+
+        <?php
+        if (isset($_SESSION['notificacao'])) {
+            $tipo = htmlspecialchars($_SESSION['notificacao']['tipo']);
+            $texto = htmlspecialchars($_SESSION['notificacao']['texto']);
+            $title = htmlspecialchars($_SESSION['notificacao']['title']);
+
+            echo "Swal.fire({
                         icon: '$tipo',
                         title: '$title',
                         text: '$texto'   
                     });";
-                    unset($_SESSION['notificacao']);
-                }
-                ?>
-            </script>
+            unset($_SESSION['notificacao']);
+        }
+        ?>
+    </script>
 
 </body>
 
