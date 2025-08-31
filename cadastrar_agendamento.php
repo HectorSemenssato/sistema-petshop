@@ -15,7 +15,7 @@ if ($stmt = $conn->prepare($sql)) {
 }
 
 $sql_funcionarios = "SELECT id_funcionario, nome_funcionario FROM funcionario ORDER BY nome_funcionario ASC";
- 
+
 if ($stmt = $conn->prepare($sql_funcionarios)) {
     $stmt->execute();
     $dados_funcionarios = $stmt->get_result();
@@ -46,16 +46,16 @@ if ($stmt = $conn->prepare($sql_funcionarios)) {
                     <div class="col-md-7 col-lg-8">
                         <div class="inputs-section">
                             <div class="input__container" data-label="Funcionário responsável">
-                               <select class="input__search" name="funcionario_agendamento" id="funcionario_select">
-                                <?php
-                                if($dados_funcionarios->num_rows > 0){
-                                    echo "<option value=''>Selecione quem fará o atendimento...</option>";
-                                    while($linha = mysqli_fetch_assoc($dados_funcionarios)){
-                                        echo "<option value='{$linha['id_funcionario']}'>{$linha['nome_funcionario']}</option>";
+                                <select class="input__search" name="funcionario_agendamento" id="funcionario_select">
+                                    <?php
+                                    if ($dados_funcionarios->num_rows > 0) {
+                                        echo "<option value=''>Selecione quem fará o atendimento...</option>";
+                                        while ($linha = mysqli_fetch_assoc($dados_funcionarios)) {
+                                            echo "<option value='{$linha['id_funcionario']}'>{$linha['nome_funcionario']}</option>";
+                                        }
                                     }
-                                }
-                                ?>
-                               </select>
+                                    ?>
+                                </select>
                             </div>
                             <div class="input__container  input_ag_nomecliente" data-label="Nome do cliente:">
                                 <select class="input__search" name="nomecliente_agendamento" id="cliente_select">
@@ -160,136 +160,138 @@ if ($stmt = $conn->prepare($sql_funcionarios)) {
                     </div>
                 </div>
             </div>
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const modalNovoClienteEl = document.getElementById('modalNovoCliente');
-                    const modalNovoCliente = new bootstrap.Modal(modalNovoClienteEl);
-                    const formNovoCliente = document.getElementById('form-novo-cliente');
-                    const btnSalvarCliente = document.getElementById('btn-salvar-cliente');
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalNovoClienteEl = document.getElementById('modalNovoCliente');
+            const modalNovoCliente = new bootstrap.Modal(modalNovoClienteEl);
+            const formNovoCliente = document.getElementById('form-novo-cliente');
+            const btnSalvarCliente = document.getElementById('btn-salvar-cliente');
 
-                    btnSalvarCliente.addEventListener('click', function() {
-                        const formData = new FormData(formNovoCliente);
-                        fetch('salvar_cliente_ajax.php', {
-                                method: 'POST',
-                                body: formData
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.sucesso) {
-                                    const novaOpcao = new Option(data.nome_cliente, data.id_cliente);
-                                    clienteSelect.add(novaOpcao, null);
-                                    novaOpcao.selected = true;
-                                    clienteSelect.dispatchEvent(new Event('change'));
-                                    modalNovoCliente.hide();
-                                    formNovoCliente.reset();
+            btnSalvarCliente.addEventListener('click', function() {
+                const formData = new FormData(formNovoCliente);
+                fetch('salvar_cliente_ajax.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.sucesso) {
+                            const novaOpcao = new Option(data.nome_cliente, data.id_cliente);
+                            clienteSelect.add(novaOpcao, null);
+                            novaOpcao.selected = true;
+                            clienteSelect.dispatchEvent(new Event('change'));
+                            modalNovoCliente.hide();
+                            formNovoCliente.reset();
 
-                                    Swal.fire('Tudo ok!', 'Novo cliente cadastrado', 'success');
-                                } else {
-                                    Swal.fire('Erro!', data.mensagem, 'error');
-                                }
-
-                            })
-                            .catch(error => {
-                                console.error('Erro na requisição:', error);
-                                Swal.fire('Algo deu errado...', 'Ocorreu um erro de comunicação.', 'error');
-                            });
-                    });
-
-                    const clienteSelect = document.getElementById('cliente_select');
-                    const animalSelect = document.getElementById('animal_select');
-                    const modalNovoAnimalEl = document.getElementById('modalNovoAnimal');
-                    const modalNovoAnimal = new bootstrap.Modal(modalNovoAnimalEl);
-                    const formNovoAnimal = document.getElementById('form-novo-animal');
-                    const btnSalvarAnimal = document.getElementById('btn-salvar-animal');
-                    const btnNovoAnimal = document.getElementById('btn-novo-animal');
-                    const idClienteAnimal = document.getElementById('id-cliente-para-animal');
-
-                    btnNovoAnimal.addEventListener('click', function() {
-                        idClienteAnimal.value = clienteSelect.value;
-                    });
-
-                    btnSalvarAnimal.addEventListener('click', function() {
-                        const formData = new FormData(formNovoAnimal);
-
-                        fetch('salvar_animal_ajax.php', {
-                                method: 'POST',
-                                body: formData
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.sucesso) {
-                                    const novaOpcao = new Option(data.nome_animal, data.id_animal);
-                                    animalSelect.add(novaOpcao, null);
-                                    novaOpcao.selected = true;
-                                    animalSelect.disabled = false;
-                                    modalNovoAnimal.hide();
-                                    formNovoAnimal.reset();
-
-                                    Swal.fire('Tudo ok!', 'Novo animal cadastrado', 'success');
-                                } else {
-                                    Swal.fire('Algo deu errado...', data.messagem, 'error');
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Erro na requisição:', error);
-                                Swal.fire('Oops!', 'Ocorreu um erro de comunicação.', 'error');
-                            });
-
-                    });
-
-                    clienteSelect.addEventListener('change', function() {
-                        const clienteId = this.value;
-
-                        animalSelect.innerHTML = '<option value="">Carregando...</option>';
-                        if (!clienteId) {
-                            animalSelect.innerHTML = '<option value="">Aguardando seleção de cliente...</option>';
-                            btnNovoAnimal.classList.add('d-none');
-                            return;
+                            Swal.fire('Tudo ok!', 'Novo cliente cadastrado', 'success');
+                        } else {
+                            Swal.fire('Erro!', data.mensagem, 'error');
                         }
-                        btnNovoAnimal.classList.remove('d-none');
-                        fetch('get_animais.php?cliente_id=' + clienteId)
-                            .then(response => response.json())
-                            .then(data => {
-                                animalSelect.innerHTML = '<option value="">Selecione um animal...</option>';
 
-                                if (data.length > 0) {
-                                    data.forEach(function(animal) {
-                                        const option = document.createElement('option');
-                                        option.value = animal.id_animal;
-                                        option.textContent = animal.nome;
-                                        animalSelect.appendChild(option);
-                                    });
-                                    animalSelect.disabled = false;
-                                } else {
-                                    animalSelect.innerHTML = '<option value="">Nenhum animal encontrado</option>';
-                          
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Erro ao buscar animais: ', error);
-                                animalSelect.innerHTML = '<option value="">Erro ao carregar</option>';
-                            });
+                    })
+                    .catch(error => {
+                        console.error('Erro na requisição:', error);
+                        Swal.fire('Algo deu errado...', 'Ocorreu um erro de comunicação.', 'error');
                     });
-                });
+            });
 
-                <?php
-                if(isset($_SESSION['notificacao'])){
-                    $tipo = htmlspecialchars($_SESSION['notificacao']['tipo']);
-                    $texto = htmlspecialchars($_SESSION['notificacao']['texto']);
-                    $title = htmlspecialchars($_SESSION['notificacao']['title']);
-                    
-                    echo "Swal.fire({
+            const clienteSelect = document.getElementById('cliente_select');
+            const animalSelect = document.getElementById('animal_select');
+            const modalNovoAnimalEl = document.getElementById('modalNovoAnimal');
+            const modalNovoAnimal = new bootstrap.Modal(modalNovoAnimalEl);
+            const formNovoAnimal = document.getElementById('form-novo-animal');
+            const btnSalvarAnimal = document.getElementById('btn-salvar-animal');
+            const btnNovoAnimal = document.getElementById('btn-novo-animal');
+            const idClienteAnimal = document.getElementById('id-cliente-para-animal');
+
+            btnNovoAnimal.addEventListener('click', function() {
+                idClienteAnimal.value = clienteSelect.value;
+            });
+
+            btnSalvarAnimal.addEventListener('click', function() {
+                const formData = new FormData(formNovoAnimal);
+
+                fetch('salvar_animal_ajax.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.sucesso) {
+                            const novaOpcao = new Option(data.nome_animal, data.id_animal);
+                            animalSelect.add(novaOpcao, null);
+                            novaOpcao.selected = true;
+                            animalSelect.disabled = false;
+                            modalNovoAnimal.hide();
+                            formNovoAnimal.reset();
+
+                            Swal.fire('Tudo ok!', 'Novo animal cadastrado', 'success');
+                        } else {
+                            Swal.fire('Algo deu errado...', data.messagem, 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro na requisição:', error);
+                        Swal.fire('Oops!', 'Ocorreu um erro de comunicação.', 'error');
+                    });
+
+            });
+
+            clienteSelect.addEventListener('change', function() {
+                const clienteId = this.value;
+
+                animalSelect.innerHTML = '<option value="">Carregando...</option>';
+                if (!clienteId) {
+                    animalSelect.innerHTML = '<option value="">Aguardando seleção de cliente...</option>';
+                    btnNovoAnimal.classList.add('d-none');
+                    return;
+                }
+                btnNovoAnimal.classList.remove('d-none');
+                fetch('get_animais.php?cliente_id=' + clienteId)
+                    .then(response => response.json())
+                    .then(data => {
+                        animalSelect.innerHTML = '<option value="">Selecione um animal...</option>';
+
+                        if (data.length > 0) {
+                            data.forEach(function(animal) {
+                                const option = document.createElement('option');
+                                option.value = animal.id_animal;
+                                option.textContent = animal.nome;
+                                animalSelect.appendChild(option);
+                            });
+                            animalSelect.disabled = false;
+                        } else {
+                            animalSelect.innerHTML = '<option value="">Nenhum animal encontrado</option>';
+
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao buscar animais: ', error);
+                        animalSelect.innerHTML = '<option value="">Erro ao carregar</option>';
+                    });
+            });
+        });
+
+        <?php
+        if (isset($_SESSION['notificacao'])) {
+            $tipo = htmlspecialchars($_SESSION['notificacao']['tipo']);
+            $texto = htmlspecialchars($_SESSION['notificacao']['texto']);
+            $title = htmlspecialchars($_SESSION['notificacao']['title']);
+
+            echo "Swal.fire({
                         icon: '$tipo',
                         title: '$title',
                         text: '$texto'
                     });";
-                    unset($_SESSION['notificacao']);
-                }
-                ?>
-            </script>
+            unset($_SESSION['notificacao']);
+        }
+        ?>
+    </script>
 </body>
-
 </html>
