@@ -76,6 +76,7 @@ h3 {
 
 .btn-novoagendamento,
 .btn-dashboard,
+.btn-login,
 .btn-cadastroextra,
 .btn-inicio,
 .btn-busca,
@@ -87,6 +88,7 @@ h3 {
     padding: 8px 20px;
     border-radius: 16px;
     font-weight: bold;
+    justify-content: center;
     transition: all 0.3s ease;
     border: 2px solid rgba(0, 0, 0, 0.25);
     text-decoration: none;
@@ -100,6 +102,7 @@ h3 {
 .btn-dashboard:hover,
 .btn-consultar:hover,
 .btn-cadastroextra:hover,
+.btn-login:hover,
 .btn-inicio:hover,
 .btn-busca:hover,
 .btn-editar:hover,
@@ -117,7 +120,7 @@ h3 {
 .btn-confirmaformulario,
 .btn-cancelaformulario,
 .btn_cadastraanimal,
-.btn_login {
+.btn-login {
     background-color: #8567e6 !important;
 }
 
