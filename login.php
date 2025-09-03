@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/styles_cadastros.css">
+    <link rel="stylesheet" href="./css/styles.css">
     <title>Login - Petshop</title>
 
     <style>
@@ -14,12 +14,12 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-color: #f0f2f5;
+            background-color: #8567e6;
         }
 
         .login-card {
-            width: 100%;
-            max-width: 400px;
+            width: 150%;
+            max-width: 450px;
             padding: 2rem;
             border: none;
             border-radius: 1rem;
@@ -32,7 +32,7 @@
     <div class="card login-card">
     <div class="card-body">
         <h3 class="card-title text-center mb-4">Acesso ao Sistema</h3>
-        <p class="card-subtitle text-center text-muted mb-4">Agendamentos de banho e tosa</p>
+        <p class="card-subtitle text-center text-muted mb-4">Faça o login e gerencie o seu petshop!</p>
         <form action="valida_login.php" method="post">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="username" name="username" placeholder="Digite seu usuário" required>
@@ -42,7 +42,7 @@
                 <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
                 <label for="password">Senha</label>
             </div>
-            <button type="submit" class="btn btn-primary w-100 py-2 mb-3">Fazer login</button>
+            <button type="submit" class="btn btn-login w-100 py-2 mb-3">Fazer login</button>
         </form>
     </div>
     </div>
