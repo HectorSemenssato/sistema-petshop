@@ -1,5 +1,5 @@
 <?php
-    include 'protege_pagina.php'; // Nosso guardião!
+    include 'protege_pagina.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de animal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/styles_cadastros.css">
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 
 <body>
@@ -43,8 +43,8 @@
                         <div class="input_sombra"></div>
                         <input type="text" name="idadeanimal" class="input__search search_tutor" placeholder="Digite o nome do tutor" />
                     </div>
-                    <button type="submit" class="btn btn_cadastraanimal">Cadastrar animal</button>
-                    <a href="index.php" class="btn btn_inicio">Voltar para o início</a>
+                    <button type="submit" class="btn btn-confirmaformulario">Cadastrar animal</button>
+                    <a href="index.php" class="btn btn-inicio">Voltar para o início</a>
                 </form>
             </div>
         </div>
