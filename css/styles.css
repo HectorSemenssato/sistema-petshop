@@ -7,9 +7,10 @@
     margin-bottom: 30px;
 }
 
-p, h3 {
+p,
+h3 {
     text-align: center;
-  }
+}
 
 .input__container {
     width: 75%;
@@ -87,7 +88,7 @@ p, h3 {
     border-radius: 16px;
     font-weight: bold;
     transition: all 0.3s ease;
-    border: 2px solid #344e41;
+    border: 2px solid rgba(0, 0, 0, 0.25);
     text-decoration: none;
     color: white;
     cursor: pointer;
@@ -150,7 +151,7 @@ p, h3 {
 
 .btn:hover,
 .btn:active {
-    border: 2px solid #344e41;
+    border: 2px solid rgba(0, 0, 0, 0.25);
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.75);
     transition: all 0.3s ease;
     transform: translateY(-2px);
@@ -188,19 +189,21 @@ p, h3 {
 }
 
 
-.navbar-petshop, .navbar-brand {
+.navbar-petshop,
+.navbar-brand {
     color: #344e41;
     font-weight: bold;
 }
 
 
-.navbar-petshop, .nav-link {
+.navbar-petshop,
+.nav-link {
     color: #344e41;
     font-weight: bold;
 }
 
 /* O menu dropdown que abre */
-.navbar-petshop, .dropdown-menu {
+.navbar-petshop {
     background-color: #a7e4f8;
     border: 3px solid #000;
     border-radius: 16px;
@@ -209,7 +212,7 @@ p, h3 {
 }
 
 /* Os itens dentro do dropdown */
-.navbar-petshop, .dropdown-item {
+.navbar-petshop {
     color: #344e41;
     font-weight: bold;
     padding: 0.5rem 1.5rem;
@@ -217,27 +220,28 @@ p, h3 {
 }
 
 /* Efeito hover nos itens do dropdown */
-.navbar-petshop, .dropdown-item:hover {
+.navbar-petshop {
     background-color: #8567e6;
     color: white;
 }
 
-.navbar-petshop, .dropdown-item::after {
+.navbar-petshop {
     display: none !important;
 }
 
 /* A linha divisória dentro do menu */
-.navbar-petshop, .dropdown-divider {
+.navbar-petshop {
     border-top: 2px solid #344e41;
 }
 
 /* Garante que o ícone do SVG pegue a cor correta */
-.navbar-petshop, .nav-link svg {
+.navbar-petshop,
+.nav-link svg {
     fill: #344e41;
 }
 
 .painel-dashboard {
-    border: 3px solid #000;
+    border: 3px solid rgba(0, 0, 0, 0.25);
     border-radius: 20px;
     width: 100%;
     min-height: 80px;
@@ -249,11 +253,7 @@ p, h3 {
 }
 
 #agnd-andamento,
-#agnd-cancelados {
-    background: #ad7e51;
-    box-shadow: 7px 7px #ad7e51;
-}
-
+#agnd-cancelados,
 #agnd-finalizados {
     background: #ad7e51;
     box-shadow: 7px 7px #ad7e51;
@@ -265,17 +265,15 @@ p, h3 {
 }
 
 #agnd-andamento:hover,
-#agnd-cancelados:hover {
-    box-shadow: 0px 0px 0px 0px #ebaa71;
+#agnd-cancelados:hover,
+#agnd-finalizados:hover {
+    box-shadow: 0px 0px 0px 0px rgb(235, 170, 113);
     transition: all 0.2s ease;
     transform: translateY(-2px);
+    border:
 }
 
-#agnd-finalizados:hover {
-    box-shadow: 0px 0px #54bf9e;
-    transition: all 0.2s ease;
-    transform: translateY(-2px);
-}
+#agnd-andamento:active {}
 
 #agnd-totais:hover {
     box-shadow: 0px 0px 0px 0px #71eb78;
